@@ -1,4 +1,4 @@
-package ted.wguc195;
+package ted.wguc195.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
