@@ -1,8 +1,11 @@
 package ted.wguc195;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ted.wguc195.daos.CountryDaoImpl;
+import ted.wguc195.models.Country;
 import ted.wguc195.utils.JDBC;
 import java.io.IOException;
 import java.util.Locale;
@@ -62,6 +65,28 @@ public class SchedulingApplication extends Application {
         }
         JDBC.openConnection();
         launch();
+        CountryDaoImpl countryDao = new CountryDaoImpl();
+        try {
+            ObservableList<Country> countries = countryDao.getAllCountries();
+            for (Country country : countries) {
+                System.out.println(country.getCountry());
+                System.out.println(country.getCountryID());
+            }
+            Country country = countryDao.getCountry(1);
+            System.out.println(country.getCountry());
+            country.setCountry("United States of America");
+            countryDao.updateCountry(country);
+            country = countryDao.getCountry(1);
+            System.out.println(country.getCountry());
+            // Cannot delete or update a parent row: a foreign key constraint fails
+            // countryDao.deleteCountry(1);
+//          country.setCountry("Japan");
+//          countryDao.addCountry(country);
+            // Deleting Japan
+            // countryDao.deleteCountry(4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         JDBC.closeConnection();
     }
 }
