@@ -64,13 +64,17 @@ public class SchedulingApplication extends Application {
             System.out.println("Resource bundle not found, continuing with default English.");
         }
         JDBC.openConnection();
-        launch();
+        testCountry();
+        // launch();
+        JDBC.closeConnection();
+    }
+
+    private static void testCountry() {
         CountryDaoImpl countryDao = new CountryDaoImpl();
         try {
             ObservableList<Country> countries = countryDao.getAllCountries();
             for (Country country : countries) {
                 System.out.println(country.getCountry());
-                System.out.println(country.getCountryID());
             }
             Country country = countryDao.getCountry(1);
             System.out.println(country.getCountry());
@@ -78,15 +82,35 @@ public class SchedulingApplication extends Application {
             countryDao.updateCountry(country);
             country = countryDao.getCountry(1);
             System.out.println(country.getCountry());
-            // Cannot delete or update a parent row: a foreign key constraint fails
-            // countryDao.deleteCountry(1);
-//          country.setCountry("Japan");
-//          countryDao.addCountry(country);
+            country.setCountry("USA");
+            countryDao.updateCountry(country);
+            // Adding Japan
+            // country.setCountry("Japan");
+            // countryDao.addCountry(country);
             // Deleting Japan
             // countryDao.deleteCountry(4);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        JDBC.closeConnection();
+    }
+
+    private static void testUser() {
+
+    }
+
+    private static void testCustomer() {
+
+    }
+
+    private static void testAppointment() {
+
+    }
+
+    private static void testContact() {
+
+    }
+
+    private static void testDivision() {
+
     }
 }
