@@ -14,7 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="ted.wguc195.controllers.LoginFormController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -39,15 +40,15 @@
                       <RowConstraints maxHeight="84.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" />
+                        <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="userName" GridPane.columnIndex="1" />
                         <Label text="username" />
                         <Label text="password" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <VBox alignment="CENTER" prefHeight="167.0" prefWidth="176.0">
                      <children>
-                        <Button mnemonicParsing="false" text="login" />
+                        <Button mnemonicParsing="false" onAction="#onActionLogin" text="login" />
                      </children>
                   </VBox>
                </children>
@@ -79,8 +80,8 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
-                  <Label text="zoneID" GridPane.columnIndex="3" />
+                  <ComboBox fx:id="languageComboBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <Label fx:id="zoneID" text="zoneID" GridPane.columnIndex="3" />
                </children>
             </GridPane>
          </children>

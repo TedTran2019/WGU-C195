@@ -5,16 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ted.wguc195.daos.CountryDaoImpl;
+import ted.wguc195.daos.UserDaoImpl;
 import ted.wguc195.models.Country;
+import ted.wguc195.models.User;
 import ted.wguc195.utils.JDBC;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class SchedulingApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SchedulingApplication.class.getResource("/views/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SchedulingApplication.class.getResource("/views/LoginForm.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Scheduling Application");
         stage.setScene(scene);
@@ -64,8 +67,7 @@ public class SchedulingApplication extends Application {
             System.out.println("Resource bundle not found, continuing with default English.");
         }
         JDBC.openConnection();
-        testCountry();
-        // launch();
+        launch();
         JDBC.closeConnection();
     }
 
@@ -92,25 +94,5 @@ public class SchedulingApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private static void testUser() {
-
-    }
-
-    private static void testCustomer() {
-
-    }
-
-    private static void testAppointment() {
-
-    }
-
-    private static void testContact() {
-
-    }
-
-    private static void testDivision() {
-
     }
 }
