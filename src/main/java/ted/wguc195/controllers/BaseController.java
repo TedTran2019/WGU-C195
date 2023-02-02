@@ -1,5 +1,7 @@
 package ted.wguc195.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public abstract class BaseController {
     protected Stage stage;
@@ -66,5 +69,20 @@ public abstract class BaseController {
         alert.setContentText(content);
         alert.showAndWait();
         return alert.getResult() == ButtonType.CANCEL;
+    }
+
+    /**
+     * It translates the given text into the language specified by the user.
+     * @param text The text to translate given as a list of strings
+     * @param rb The ResourceBundle containing the translations
+     * @return translated text
+     */
+    @FXML
+    protected ObservableList<String> translate(ObservableList<String> text, ResourceBundle rb) {
+        ObservableList<String> translatedText = FXCollections.observableArrayList();
+        for (String str : text) {
+            translatedText.add(rb.getString(str));
+        }
+        return translatedText;
     }
 }

@@ -26,8 +26,6 @@ public class SchedulingApplication extends Application {
     }
 
     /**
-     * Login Form: username, password, displays lang and zoneID.
-     * Let's do a drop down or combo box for the language for easy testing + practice
      * Main form: Customers and Appointments (Can be added, updated, deleted) (Table views)
      * - All customer's appointments must be deleted b4 customer can be deleted
      * - Text fields collect: name, address, postal code, phone #

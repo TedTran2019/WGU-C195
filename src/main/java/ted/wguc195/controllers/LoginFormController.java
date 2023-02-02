@@ -30,16 +30,29 @@ public class LoginFormController extends BaseController {
     private UserDaoImpl userDao = new UserDaoImpl();
 
     @FXML
+    private Locale userLocale = Locale.getDefault();
+
+    @FXML
     void onActionLogin(ActionEvent event) throws SQLException, IOException {
         String userName = this.userName.getText();
         String password = this.password.getText();
         User user = userDao.getUser(userName);
         if (user == null) {
-            errorBox("Invalid username", "User not found", "Please enter a valid username");
+            if (userLocale.getLanguage().equals("fr")) {
+                errorBox("Nom d'utilisateur invalide", "Utilisateur non trouvé", "Merci d'entrer un nom d'utilisateur valide");
+            }
+            else {
+                errorBox("Invalid username", "User not found", "Please enter a valid username");
+            }
             return;
         }
         if (!user.getPassword().equals(password)) {
-            errorBox("Invalid password", "Password incorrect", "Please enter a valid password");
+            if (userLocale.getLanguage().equals("fr")) {
+                errorBox("Mot de passe incorrect", "Mot de passe incorrect", "Entrer un mot de passe valide s'il vous plait");
+            }
+            else {
+                errorBox("Invalid password", "Password incorrect", "Please enter a valid password");
+            }
             return;
         }
         switchScene(event, "/views/Main.fxml");
@@ -64,7 +77,6 @@ public class LoginFormController extends BaseController {
 
     @FXML
     private void setupComboBox() {
-        Locale userLocale = Locale.getDefault();
         if (userLocale.getLanguage().equals("fr")) {
             languageComboBox.setValue("Français");
             languageComboBox.setItems(FXCollections.observableArrayList("Anglais", "Français"));
@@ -72,6 +84,7 @@ public class LoginFormController extends BaseController {
             languageComboBox.setItems(FXCollections.observableArrayList("English", "French"));
             languageComboBox.setValue("English");
         }
+        System.out.println(translate(FXCollections.observableArrayList("button.login"), ResourceBundle.getBundle("bundles/lang", userLocale)));
     }
 
     @FXML
