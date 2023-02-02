@@ -23,10 +23,6 @@ public abstract class BaseController {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource(sceneName));
         stage.setScene(new Scene(root));
-        // Edit this later since this is from my Software 1
-        if (sceneName.equals("Main.fxml")) {
-            stage.setUserData("main");
-        }
         stage.show();
     }
 

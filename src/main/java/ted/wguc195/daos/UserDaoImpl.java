@@ -54,6 +54,26 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
+    public User getUser(String userName) throws SQLException {
+        String sql = "SELECT * FROM users WHERE User_Name = ?";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ps.setString(1, userName);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            int userID = rs.getInt("User_ID");
+            String password = rs.getString("Password");
+            Timestamp createDate = rs.getTimestamp("Create_Date");
+            String createdBy = rs.getString("Created_By");
+            Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+            String lastUpdatedBy = rs.getString("Last_Updated_By");
+
+            return new User(userID, userName, password, createDate.toLocalDateTime(), createdBy, lastUpdate.toLocalDateTime(), lastUpdatedBy);
+        }
+        return null;
+    }
+
+    @Override
     public void updateUser(User user) throws SQLException {
         String sql = "UPDATE users SET User_Name = ?, Password = ?, Last_Update = ?, Last_Updated_By = ? WHERE User_ID = ?";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);

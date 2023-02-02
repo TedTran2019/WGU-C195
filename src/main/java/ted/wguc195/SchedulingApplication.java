@@ -17,7 +17,8 @@ import java.util.ResourceBundle;
 public class SchedulingApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SchedulingApplication.class.getResource("/views/LoginForm.fxml"));
+        Locale userLocale = Locale.getDefault();
+        FXMLLoader fxmlLoader = new FXMLLoader(SchedulingApplication.class.getResource("/views/LoginForm.fxml"), ResourceBundle.getBundle("bundles/lang", userLocale));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Scheduling Application");
         stage.setScene(scene);
