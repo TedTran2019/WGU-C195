@@ -36,7 +36,7 @@ public abstract class BaseController {
      */
     @FXML
     protected void onActionMain(ActionEvent event) throws IOException {
-        switchScene(event, "Main.fxml");
+        switchScene(event, "/views/Main.fxml");
     }
 
     /**

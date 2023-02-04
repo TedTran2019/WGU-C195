@@ -2,15 +2,18 @@ package ted.wguc195.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import ted.wguc195.SchedulingApplication;
 import ted.wguc195.models.Appointment;
 import ted.wguc195.models.Customer;
-
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MainController extends BaseController {
 
@@ -75,8 +78,8 @@ public class MainController extends BaseController {
     private TableView<Customer> customersTableView;
 
     @FXML
-    void onActionAddCustomer(ActionEvent event) {
-
+    void onActionAddCustomer(ActionEvent event) throws IOException {
+        switchScene(event, "/views/AddCustomer.fxml");
     }
 
     @FXML
@@ -105,8 +108,12 @@ public class MainController extends BaseController {
     }
 
     @FXML
-    void onActionLogout(ActionEvent event) {
-
+    void onActionLogout(ActionEvent event) throws IOException {
+        Locale userLocale = Locale.getDefault();
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/views/LoginForm.fxml"), ResourceBundle.getBundle("bundles/lang", userLocale));
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
@@ -116,6 +123,11 @@ public class MainController extends BaseController {
 
     @FXML
     void onActionUpdateCustomer(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void initialize() {
 
     }
 }
