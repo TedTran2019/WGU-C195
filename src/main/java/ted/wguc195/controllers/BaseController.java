@@ -45,7 +45,6 @@ public abstract class BaseController {
      * @param header The header of the error box
      * @param content The content of the error box
      */
-    @FXML
     protected void errorBox(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -61,7 +60,6 @@ public abstract class BaseController {
      * @param content The content of the error box
      * @return true if the user clicks cancel, false otherwise
      */
-    @FXML
     protected boolean confirmBox(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
@@ -77,7 +75,6 @@ public abstract class BaseController {
      * @param rb The ResourceBundle containing the translations
      * @return translated text
      */
-    @FXML
     protected ObservableList<String> translate(ObservableList<String> text, ResourceBundle rb) {
         ObservableList<String> translatedText = FXCollections.observableArrayList();
         for (String str : text) {

@@ -155,7 +155,7 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                <children>
-                  <Button minWidth="100.0" mnemonicParsing="false" onAction="#onActionAddCustomer" text="Add">
+                  <Button minWidth="100.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -163,7 +163,7 @@
                         <Insets right="50.0" />
                      </HBox.margin>
                   </Button>
-                  <Button minWidth="100.0" mnemonicParsing="false" onAction="#onActionUpdateCustomer" text="Update">
+                  <Button minWidth="100.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update">
                      <font>
                         <Font size="18.0" />
                      </font>

@@ -26,10 +26,7 @@ public class LoginFormController extends BaseController {
     private TextField userName;
     @FXML
     private Label zoneID;
-    @FXML
     private UserDaoImpl userDao = new UserDaoImpl();
-
-    @FXML
     private Locale userLocale = Locale.getDefault();
 
     @FXML
@@ -75,7 +72,6 @@ public class LoginFormController extends BaseController {
         stage.show();
     }
 
-    @FXML
     private void setupComboBox() {
         if (userLocale.getLanguage().equals("fr")) {
             languageComboBox.setValue("Français");
@@ -86,7 +82,6 @@ public class LoginFormController extends BaseController {
         }
     }
 
-    @FXML
     public void initialize() {
         zoneID.setText(ZoneId.systemDefault().toString());
         setupComboBox();

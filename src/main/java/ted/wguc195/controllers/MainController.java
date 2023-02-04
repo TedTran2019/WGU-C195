@@ -1,5 +1,6 @@
 package ted.wguc195.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,6 +79,11 @@ public class MainController extends BaseController {
     private TableView<Customer> customersTableView;
 
     @FXML
+    void onActionAddAppointment(ActionEvent event) throws IOException {
+        switchScene(event, "/views/AddAppointment.fxml");
+    }
+
+    @FXML
     void onActionAddCustomer(ActionEvent event) throws IOException {
         switchScene(event, "/views/AddCustomer.fxml");
     }
@@ -107,6 +113,7 @@ public class MainController extends BaseController {
 
     }
 
+
     @FXML
     void onActionLogout(ActionEvent event) throws IOException {
         Locale userLocale = Locale.getDefault();
@@ -117,7 +124,12 @@ public class MainController extends BaseController {
     }
 
     @FXML
-    void onActionReports(ActionEvent event) {
+    void onActionReports(ActionEvent event) throws IOException {
+        switchScene(event, "/views/Reports.fxml");
+    }
+
+    @FXML
+    void onActionUpdateAppointment(ActionEvent event) {
 
     }
 
@@ -126,8 +138,15 @@ public class MainController extends BaseController {
 
     }
 
-    @FXML
-    public void initialize() {
+    private void setCustomersTableView() {
+    }
 
+    private void setAppointmentsTableView() {
+
+    }
+
+    public void initialize() {
+        setCustomersTableView();
+        setAppointmentsTableView();
     }
 }
