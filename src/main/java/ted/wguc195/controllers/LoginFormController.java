@@ -84,7 +84,6 @@ public class LoginFormController extends BaseController {
             languageComboBox.setItems(FXCollections.observableArrayList("English", "French"));
             languageComboBox.setValue("English");
         }
-        System.out.println(translate(FXCollections.observableArrayList("button.login"), ResourceBundle.getBundle("bundles/lang", userLocale)));
     }
 
     @FXML
