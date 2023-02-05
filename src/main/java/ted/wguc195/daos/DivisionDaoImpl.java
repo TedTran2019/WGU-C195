@@ -87,4 +87,27 @@ public class DivisionDaoImpl implements DivisionDao{
         ps.setInt(6, division.getCountryID());
         ps.executeUpdate();
     }
+
+    @Override
+    public ObservableList<Division> getDivisionsFromCountryID(int countryID) throws SQLException {
+        ObservableList<Division> divisions = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = ?";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ps.setInt(1, countryID);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int divisionID = rs.getInt("Division_ID");
+            String division = rs.getString("Division");
+            Timestamp createDate = rs.getTimestamp("Create_Date");
+            String createdBy = rs.getString("Created_By");
+            Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+            String lastUpdatedBy = rs.getString("Last_Updated_By");
+
+            divisions.add(new Division(divisionID, division, createDate.toLocalDateTime(), createdBy,
+                    lastUpdate.toLocalDateTime(), lastUpdatedBy, countryID));
+        }
+        return divisions;
+    }
 }

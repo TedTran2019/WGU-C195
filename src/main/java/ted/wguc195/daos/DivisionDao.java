@@ -10,4 +10,5 @@ public interface DivisionDao {
     public void updateDivision(Division division) throws SQLException;
     public void deleteDivision(int divisionID) throws SQLException;
     public void addDivision(Division division) throws SQLException;
+    public ObservableList<Division> getDivisionsFromCountryID(int countryID) throws SQLException;
 }
