@@ -1,5 +1,8 @@
 package ted.wguc195.models;
 
+import ted.wguc195.daos.ContactDaoImpl;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Appointment {
@@ -17,6 +20,7 @@ public class Appointment {
     private int customerID;
     private int userID;
     private int contactID;
+    private ContactDaoImpl contactDao = new ContactDaoImpl();
 
     public Appointment(int appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy, int customerID, int userID, int contactID) {
         this.appointmentID = appointmentID;
@@ -145,5 +149,9 @@ public class Appointment {
 
     public void setContactID(int contactID) {
         this.contactID = contactID;
+    }
+
+    public String getContactName() throws SQLException {
+        return contactDao.getContact(contactID).getContactName();
     }
 }

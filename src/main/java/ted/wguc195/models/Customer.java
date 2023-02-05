@@ -1,5 +1,8 @@
 package ted.wguc195.models;
 
+import ted.wguc195.daos.DivisionDaoImpl;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Customer {
@@ -13,6 +16,7 @@ public class Customer {
     private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
     private int divisionID;
+    private DivisionDaoImpl divisionDao = new DivisionDaoImpl();
 
     public Customer(int customerID, String customerName, String address, String postalCode, String phone, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy, int divisionID) {
         this.customerID = customerID;
@@ -105,5 +109,9 @@ public class Customer {
 
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
+    }
+
+    public String getDivisionName() throws SQLException {
+        return divisionDao.getDivision(divisionID).getDivision();
     }
 }

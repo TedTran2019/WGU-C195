@@ -106,12 +106,12 @@
                         </Label>
                         <HBox prefHeight="50.0" prefWidth="900.0">
                            <children>
-                              <DatePicker fx:id="atvFilterDate" prefHeight="50.0" prefWidth="300.0" promptText="Choose a filter date!">
+                              <DatePicker fx:id="atvFilterDate" onAction="#onActionATVFilterDate" prefHeight="50.0" prefWidth="300.0" promptText="Choose a filter date!">
                                  <HBox.margin>
                                     <Insets right="100.0" />
                                  </HBox.margin>
                               </DatePicker>
-                              <RadioButton mnemonicParsing="false" onAction="#onActionFilterMonth" prefHeight="50.0" prefWidth="200.0" text="Month">
+                              <RadioButton fx:id="rbMonth" disable="true" mnemonicParsing="false" onAction="#onActionFilterMonth" prefHeight="50.0" prefWidth="200.0" text="Month">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -119,7 +119,7 @@
                                     <ToggleGroup fx:id="appointmentFilter" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" onAction="#onActionFilterWeek" prefHeight="50.0" prefWidth="200.0" text="Week" toggleGroup="$appointmentFilter">
+                              <RadioButton fx:id="rbWeek" disable="true" mnemonicParsing="false" onAction="#onActionFilterWeek" prefHeight="50.0" prefWidth="200.0" text="Week" toggleGroup="$appointmentFilter">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
