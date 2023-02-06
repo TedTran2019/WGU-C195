@@ -2,6 +2,7 @@ package ted.wguc195.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import ted.wguc195.daos.AppointmentDaoImpl;
 import ted.wguc195.daos.ContactDaoImpl;
 import ted.wguc195.daos.CustomerDaoImpl;
 import ted.wguc195.daos.UserDaoImpl;
@@ -65,9 +66,10 @@ public abstract class AppointmentController extends BaseController {
     @FXML
     protected Spinner<Integer> spinnerStartMinutes;
 
-    private CustomerDaoImpl customerDao = new CustomerDaoImpl();
-    private UserDaoImpl userDao = new UserDaoImpl();
-    private ContactDaoImpl contactDao = new ContactDaoImpl();
+    protected CustomerDaoImpl customerDao = new CustomerDaoImpl();
+    protected UserDaoImpl userDao = new UserDaoImpl();
+    protected ContactDaoImpl contactDao = new ContactDaoImpl();
+    protected AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
 
     protected void setComboBoxes() throws SQLException {
         comboBoxCustomer.setItems(customerDao.getAllCustomers());
@@ -80,5 +82,74 @@ public abstract class AppointmentController extends BaseController {
         spinnerStartMinutes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
         spinnerEndHours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         spinnerEndMinutes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+    }
+
+    protected boolean validateFields(String title, String description, String location, String type) {
+        boolean isValid = true;
+
+        if (title.isEmpty()) {
+            errorTitle.setText("Title is required");
+            isValid = false;
+        } else {
+            errorTitle.setText("");
+        }
+        if (description.isEmpty()) {
+            errorDescription.setText("Description is required");
+            isValid = false;
+        } else {
+            errorDescription.setText("");
+        }
+        if (location.isEmpty()) {
+            errorLocation.setText("Location is required");
+            isValid = false;
+        } else {
+            errorLocation.setText("");
+        }
+        if (type.isEmpty()) {
+            errorType.setText("Type is required");
+            isValid = false;
+        } else {
+            errorType.setText("");
+        }
+        if (unselectedChecks()) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    private boolean unselectedChecks() {
+        boolean unselected = false;
+
+        if (comboBoxCustomer.getValue() == null) {
+            comboBoxCustomer.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            comboBoxCustomer.setStyle("");
+        }
+        if (comboBoxUser.getValue() == null) {
+            comboBoxUser.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            comboBoxUser.setStyle("");
+        }
+        if (comboBoxContact.getValue() == null) {
+            comboBoxContact.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            comboBoxContact.setStyle("");
+        }
+        if (datePickerStart.getValue() == null) {
+            datePickerStart.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            datePickerStart.setStyle("");
+        }
+        if (datePickerEnd.getValue() == null) {
+            datePickerEnd.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            datePickerEnd.setStyle("");
+        }
+        return unselected;
     }
 }
