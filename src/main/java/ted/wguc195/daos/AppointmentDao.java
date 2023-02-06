@@ -4,7 +4,10 @@ import javafx.collections.ObservableList;
 import ted.wguc195.models.Appointment;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public interface AppointmentDao {
     public ObservableList<Appointment> getAllAppointments() throws SQLException;
@@ -15,4 +18,5 @@ public interface AppointmentDao {
     public ObservableList<Appointment> getAppointmentsByMonth(LocalDate date) throws SQLException;
     public ObservableList<Appointment> getAppointmentsByWeek(LocalDate date) throws SQLException;
     public void deleteAppointmentsByCustomerID(int customerID) throws SQLException;
+    public ObservableList<Appointment> getOverlappingAppointments(Timestamp start, Timestamp end) throws SQLException;
 }

@@ -1,16 +1,19 @@
 package ted.wguc195.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ted.wguc195.daos.AppointmentDaoImpl;
 import ted.wguc195.daos.ContactDaoImpl;
 import ted.wguc195.daos.CustomerDaoImpl;
 import ted.wguc195.daos.UserDaoImpl;
+import ted.wguc195.models.Appointment;
 import ted.wguc195.models.Contact;
 import ted.wguc195.models.Customer;
 import ted.wguc195.models.User;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -181,5 +184,11 @@ public abstract class AppointmentController extends BaseController {
 
     private boolean outOfOfficeHours(ZonedDateTime time) {
         return (time.getHour() < 8 || time.getHour() > 22 || (time.getHour() == 22 && time.getMinute() > 0));
+    }
+
+    protected ObservableList<Appointment> getOverlappingAppointments(LocalDateTime start, LocalDateTime end) throws SQLException {
+        Timestamp startUTC = Timestamp.valueOf(convertLocalToUTC(start).toLocalDateTime());
+        Timestamp endUTC = Timestamp.valueOf(convertLocalToUTC(end).toLocalDateTime());
+        return appointmentDao.getOverlappingAppointments(startUTC, endUTC);
     }
 }

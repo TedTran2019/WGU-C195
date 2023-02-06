@@ -1,5 +1,6 @@
 package ted.wguc195.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import ted.wguc195.SchedulingApplication;
@@ -7,8 +8,10 @@ import ted.wguc195.models.Appointment;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class AddAppointmentController  extends AppointmentController{
     @FXML
@@ -23,6 +26,10 @@ public class AddAppointmentController  extends AppointmentController{
         LocalDateTime start = getLocalDateTime(datePickerStart.getValue(), spinnerStartHours.getValue(), spinnerStartMinutes.getValue());
         LocalDateTime end = getLocalDateTime(datePickerEnd.getValue(), spinnerEndHours.getValue(), spinnerEndMinutes.getValue());
         if (!validateTimes(start, end)) {
+            return;
+        }
+        if (!getOverlappingAppointments(start, end).isEmpty()) {
+            errorBox("Date/Time Error", "Overlapping Appointments", "There is already an appointment scheduled during this time block");
             return;
         }
         int customer = comboBoxCustomer.getValue().getCustomerID();
