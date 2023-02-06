@@ -55,11 +55,9 @@ public class SchedulingApplication extends Application {
      *  - Javadocs
      *  - README.txt (not md?) with a bunch of information
      *
-     *  mysql -u root -p
-     *  brew services stop mysql
-     *  mysql.server start
-     *  To change timezone to UTC for mysql: /usr/local/etc/my.cnf, add default-time-zone='+00:00' below [mysqld] then
-     *  brew services restart mysql
+     *  mysql -u root -p, brew services stop mysql, mysql.server start, brew services restart mysql
+     *  /usr/local/etc/my.cnf, add default-time-zone='+00:00' below [mysqld] then
+     *  brew services restart mysql --config /usr/local/etc/my.cnf
      * */
     public static void main(String[] args) {
         Locale french = new Locale("fr", "FR");
