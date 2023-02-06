@@ -22,6 +22,9 @@ public class AddAppointmentController  extends AppointmentController{
         }
         LocalDateTime start = getLocalDateTime(datePickerStart.getValue(), spinnerStartHours.getValue(), spinnerStartMinutes.getValue());
         LocalDateTime end = getLocalDateTime(datePickerEnd.getValue(), spinnerEndHours.getValue(), spinnerEndMinutes.getValue());
+        if (!validateTimes(start, end)) {
+            return;
+        }
         int customer = comboBoxCustomer.getValue().getCustomerID();
         int user = comboBoxUser.getValue().getUserID();
         int contact = comboBoxContact.getValue().getContactID();

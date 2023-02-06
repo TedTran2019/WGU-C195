@@ -11,6 +11,9 @@ import ted.wguc195.models.Customer;
 import ted.wguc195.models.User;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public abstract class AppointmentController extends BaseController {
     @FXML
@@ -112,7 +115,6 @@ public abstract class AppointmentController extends BaseController {
             errorType.setText("");
         }
         if (unselectedChecks()) {return false;}
-        // Handle checks for overlapping appointments and
         return isValid;
     }
 
@@ -150,5 +152,34 @@ public abstract class AppointmentController extends BaseController {
             datePickerEnd.setStyle("");
         }
         return unselected;
+    }
+
+    protected boolean validateTimes(LocalDateTime start, LocalDateTime end) {
+        if (!start.isBefore(end)) {
+            errorBox("Date/Time Error", "Start must be before end", "Please select valid start and end times");
+            return false;
+        }
+        if (start.isBefore(LocalDateTime.now())) {
+            errorBox("Date/Time Error", "Start must be in the future", "Please select a start time in the future");
+            return false;
+        }
+        if (!validateWithinOfficeHours(start)) { return false;}
+
+        return true;
+    }
+
+    private boolean validateWithinOfficeHours(LocalDateTime start) {
+        boolean isValid = true;
+        ZonedDateTime startEST = convertLocalToEST(start);
+
+        if (outOfOfficeHours(startEST)) {
+            errorBox("Date/Time Error", "Start must be within EST office hours", "Please select a start time between 8am and 10pm EST");
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    private boolean outOfOfficeHours(ZonedDateTime time) {
+        return (time.getHour() < 8 || time.getHour() > 22 || (time.getHour() == 22 && time.getMinute() > 0));
     }
 }

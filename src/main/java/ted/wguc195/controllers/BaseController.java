@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import ted.wguc195.daos.UserDaoImpl;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
 public abstract class BaseController {
@@ -19,6 +22,8 @@ public abstract class BaseController {
     protected Parent root;
 
     protected Scene scene;
+    protected static ZoneId ESTzoneID = ZoneId.of("America/New_York");
+    protected static ZoneId UTCzoneID = ZoneId.of("UTC");
 
     /**
      * This method loads the scene specified by sceneName.
@@ -85,5 +90,13 @@ public abstract class BaseController {
             translatedText.add(rb.getString(str));
         }
         return translatedText;
+    }
+
+    protected ZonedDateTime convertLocalToEST(LocalDateTime time) {
+        return time.atZone(ESTzoneID);
+    }
+
+    protected ZonedDateTime convertLocalToUTC(LocalDateTime time) {
+        return time.atZone(UTCzoneID);
     }
 }

@@ -109,6 +109,8 @@ public class AppointmentDaoImpl implements AppointmentDao{
         ps.setString(2, appointment.getDescription());
         ps.setString(3, appointment.getLocation());
         ps.setString(4, appointment.getType());
+        System.out.println(Timestamp.valueOf(appointment.getStart()));
+        System.out.println(Timestamp.valueOf(appointment.getEnd()));
         ps.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
         ps.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
         ps.setTimestamp(7, Timestamp.valueOf(appointment.getCreateDate()));
