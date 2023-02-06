@@ -170,8 +170,8 @@ public abstract class AppointmentController extends BaseController {
 
     private boolean validateWithinOfficeHours(LocalDateTime start) {
         boolean isValid = true;
-        ZonedDateTime startEST = convertLocalToEST(start);
 
+        ZonedDateTime startEST = convertLocalToEST(start);
         if (outOfOfficeHours(startEST)) {
             errorBox("Date/Time Error", "Start must be within EST office hours", "Please select a start time between 8am and 10pm EST");
             isValid = false;

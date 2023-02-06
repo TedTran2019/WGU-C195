@@ -24,6 +24,7 @@ public abstract class BaseController {
     protected Scene scene;
     protected static ZoneId ESTzoneID = ZoneId.of("America/New_York");
     protected static ZoneId UTCzoneID = ZoneId.of("UTC");
+    protected static ZoneId defaultZoneID = ZoneId.systemDefault();
 
     /**
      * This method loads the scene specified by sceneName.
@@ -93,10 +94,10 @@ public abstract class BaseController {
     }
 
     protected ZonedDateTime convertLocalToEST(LocalDateTime time) {
-        return time.atZone(ESTzoneID);
+        return time.atZone(defaultZoneID).withZoneSameInstant(ESTzoneID);
     }
 
     protected ZonedDateTime convertLocalToUTC(LocalDateTime time) {
-        return time.atZone(UTCzoneID);
+        return time.atZone(defaultZoneID).withZoneSameInstant(UTCzoneID);
     }
 }
