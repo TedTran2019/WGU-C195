@@ -114,4 +114,8 @@ public class Customer {
     public String getDivisionName() throws SQLException {
         return divisionDao.getDivision(divisionID).getDivision();
     }
+
+    public String toString() {
+        return customerName + " | ID: " + customerID;
+    }
 }

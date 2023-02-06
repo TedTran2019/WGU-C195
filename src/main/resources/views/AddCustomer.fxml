@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -48,7 +47,7 @@
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField disable="true" />
+                        <TextField disable="true" text="Field Disabled" />
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -135,11 +134,10 @@
                         <ComboBox fx:id="comboBoxDivision" disable="true" prefWidth="150.0" promptText="Select a division!" />
                      </children>
                   </HBox>
-                  <TextArea disable="true" maxHeight="60.0" prefHeight="60.0" prefWidth="300.0" GridPane.columnIndex="1" />
-                  <TextArea fx:id="errorName" disable="true" maxHeight="60.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextArea fx:id="errorAddress" disable="true" maxHeight="60.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextArea fx:id="errorPostal" disable="true" maxHeight="60.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextArea fx:id="errorPhone" disable="true" maxHeight="60.0" prefHeight="82.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="errorName" alignment="TOP_LEFT" prefHeight="63.0" prefWidth="365.0" textFill="#eb0404" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="errorAddress" alignment="TOP_LEFT" prefHeight="61.0" prefWidth="412.0" textFill="#eb0707" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="errorPostal" alignment="TOP_LEFT" prefHeight="59.0" prefWidth="423.0" textFill="#eb0000" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="errorPhone" alignment="TOP_LEFT" prefHeight="63.0" prefWidth="502.0" textFill="#f20404" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">

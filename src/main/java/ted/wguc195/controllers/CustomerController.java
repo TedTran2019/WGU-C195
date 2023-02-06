@@ -24,16 +24,16 @@ public abstract class CustomerController extends BaseController {
     protected ComboBox<Division> comboBoxDivision;
 
     @FXML
-    protected TextArea errorAddress;
+    protected Label errorAddress;
 
     @FXML
-    protected TextArea errorName;
+    protected Label errorName;
 
     @FXML
-    protected TextArea errorPhone;
+    protected Label errorPhone;
 
     @FXML
-    protected TextArea errorPostal;
+    protected Label errorPostal;
 
     @FXML
     protected Label labelDivision;
