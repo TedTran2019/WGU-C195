@@ -188,4 +188,12 @@ public class AppointmentDaoImpl implements AppointmentDao{
         }
         return appointments;
     }
+
+    @Override
+    public void deleteAppointmentsByCustomerID(int customerID) throws SQLException {
+        String sql = "DELETE FROM appointments WHERE Customer_ID = ?";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ps.setInt(1, customerID);
+        ps.executeUpdate();
+    }
 }

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import ted.wguc195.SchedulingApplication;
 import ted.wguc195.daos.UserDaoImpl;
 import ted.wguc195.models.User;
 
@@ -52,6 +53,7 @@ public class LoginFormController extends BaseController {
             }
             return;
         }
+        SchedulingApplication.setUser(user.getUserName());
         switchScene(event, "/views/Main.fxml");
     }
 

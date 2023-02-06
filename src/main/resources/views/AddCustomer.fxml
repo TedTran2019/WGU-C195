@@ -135,11 +135,11 @@
                         <ComboBox fx:id="comboBoxDivision" disable="true" prefWidth="150.0" promptText="Select a division!" />
                      </children>
                   </HBox>
-                  <TextArea disable="true" maxHeight="60.0" opacity="0.0" prefHeight="60.0" prefWidth="300.0" GridPane.columnIndex="1" />
-                  <TextArea fx:id="errorName" disable="true" maxHeight="60.0" opacity="0.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextArea fx:id="errorAddress" disable="true" maxHeight="60.0" opacity="0.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextArea fx:id="errorPostal" disable="true" maxHeight="60.0" opacity="0.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextArea fx:id="errorPhone" disable="true" maxHeight="60.0" opacity="0.0" prefHeight="82.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextArea disable="true" maxHeight="60.0" prefHeight="60.0" prefWidth="300.0" GridPane.columnIndex="1" />
+                  <TextArea fx:id="errorName" disable="true" maxHeight="60.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextArea fx:id="errorAddress" disable="true" maxHeight="60.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextArea fx:id="errorPostal" disable="true" maxHeight="60.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextArea fx:id="errorPhone" disable="true" maxHeight="60.0" prefHeight="82.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">

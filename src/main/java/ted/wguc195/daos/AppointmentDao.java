@@ -14,4 +14,5 @@ public interface AppointmentDao {
     public void addAppointment(Appointment appointment) throws SQLException;
     public ObservableList<Appointment> getAppointmentsByMonth(LocalDate date) throws SQLException;
     public ObservableList<Appointment> getAppointmentsByWeek(LocalDate date) throws SQLException;
+    public void deleteAppointmentsByCustomerID(int customerID) throws SQLException;
 }

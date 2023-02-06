@@ -7,8 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import ted.wguc195.daos.CountryDaoImpl;
+import ted.wguc195.daos.CustomerDaoImpl;
 import ted.wguc195.daos.DivisionDaoImpl;
 import ted.wguc195.models.Country;
+import ted.wguc195.models.Customer;
 import ted.wguc195.models.Division;
 import javafx.scene.control.ListCell;
 
@@ -16,62 +18,112 @@ import java.sql.SQLException;
 
 public abstract class CustomerController extends BaseController {
     @FXML
-    private ComboBox<Country> comboBoxCountry;
+    protected ComboBox<Country> comboBoxCountry;
 
     @FXML
-    private ComboBox<Division> comboBoxDivision;
+    protected ComboBox<Division> comboBoxDivision;
 
     @FXML
-    private TextArea errorAddress;
+    protected TextArea errorAddress;
 
     @FXML
-    private TextArea errorName;
+    protected TextArea errorName;
 
     @FXML
-    private TextArea errorPhone;
+    protected TextArea errorPhone;
 
     @FXML
-    private TextArea errorPostal;
+    protected TextArea errorPostal;
 
     @FXML
-    private Label labelDivision;
+    protected Label labelDivision;
 
     @FXML
-    private TextField textFieldAddress;
+    protected TextField textFieldAddress;
 
     @FXML
-    private TextField textFieldName;
+    protected TextField textFieldName;
 
     @FXML
-    private TextField textFieldPhone;
+    protected TextField textFieldPhone;
 
     @FXML
-    private TextField textFieldPostal;
-
-    CountryDaoImpl countryDao = new CountryDaoImpl();
-    DivisionDaoImpl divisionDao = new DivisionDaoImpl();
+    protected TextField textFieldPostal;
+    @FXML
+    protected TextField textFieldID;
+    protected CountryDaoImpl countryDao = new CountryDaoImpl();
+    protected DivisionDaoImpl divisionDao = new DivisionDaoImpl();
+    protected CustomerDaoImpl customerDao = new CustomerDaoImpl();
 
     @FXML
-    void onActionCountryCB(ActionEvent event) throws SQLException {
-        comboBoxDivision.setItems(divisionDao.getDivisionsFromCountryID(comboBoxCountry.getValue().getCountryID()));
+    protected void onActionCountryCB(ActionEvent event) throws SQLException {
+        int countryID = comboBoxCountry.getValue().getCountryID();
+        comboBoxDivision.setItems(divisionDao.getDivisionsFromCountryID(countryID));
+        comboBoxDivision.setValue(null);
         comboBoxDivision.setDisable(false);
+        if (countryID == 1) {
+            labelDivision.setText("State");
+        } else if (countryID == 3) {
+            labelDivision.setText("Province");
+        } else {
+            labelDivision.setText("Division");
+        }
     }
 
-    void setCountryCB() throws SQLException {
+    protected void setCountryCB() throws SQLException {
         comboBoxCountry.setItems(countryDao.getAllCountries());
     }
 
-    void setDivisionCBPromptText() {
+    protected void setDivisionCBPromptText() {
         comboBoxDivision.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(Division item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText("Select a division!");
-                } else {
-                    setText(item.getDivision());
-                }
+                setText(empty || item == null ? "Select a division!" : item.getDivision());
             }
         });
+    }
+
+    /**
+     * This method validates the fields in the add customer form. If I had to handle more errors, I would make a separate
+     * method for each single field that would handle the error checking + text setting.
+     * @param customerName
+     * @param address
+     * @param postalCode
+     * @param phone
+     * @returns boolean isValid
+     */
+    protected boolean validateFields(String customerName, String address, String postalCode, String phone) {
+        boolean isValid = true;
+
+        if (customerName.isEmpty()) {
+            errorName.setText("Customer name is required.");
+            isValid = false;
+        } else {
+            errorName.setText("");
+        }
+        if (address.isEmpty()) {
+            errorAddress.setText("Address is required.");
+            isValid = false;
+        } else {
+            errorAddress.setText("");
+        }
+        if (postalCode.isEmpty()) {
+            errorPostal.setText("Postal code is required.");
+            isValid = false;
+        } else {
+            errorPostal.setText("");
+        }
+        if (phone.isEmpty()) {
+            errorPhone.setText("Phone number is required.");
+            isValid = false;
+        } else {
+            errorPhone.setText("");
+        }
+        if (comboBoxDivision.getValue() == null) {
+            errorBox("Division Error", "Please select a division.", "Division is required!");
+            isValid = false;
+        }
+        return isValid;
     }
 }

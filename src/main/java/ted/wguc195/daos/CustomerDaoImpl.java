@@ -79,6 +79,7 @@ public class CustomerDaoImpl implements CustomerDao{
 
     @Override
     public void deleteCustomer(int customerID) throws SQLException {
+        new AppointmentDaoImpl().deleteAppointmentsByCustomerID(customerID);
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
         ps.setInt(1, customerID);

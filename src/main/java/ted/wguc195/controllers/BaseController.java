@@ -9,12 +9,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import ted.wguc195.daos.UserDaoImpl;
+
 import java.io.IOException;
 import java.util.ResourceBundle;
 
 public abstract class BaseController {
     protected Stage stage;
     protected Parent root;
+
+    protected Scene scene;
 
     /**
      * This method loads the scene specified by sceneName.

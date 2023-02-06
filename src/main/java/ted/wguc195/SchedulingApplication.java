@@ -13,8 +13,17 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 public class SchedulingApplication extends Application {
+    public static String user = null;
+
+    public static String getUser() {
+        return user;
+    }
+
+    public static void setUser(String user) {
+        SchedulingApplication.user = user;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         Locale userLocale = Locale.getDefault();

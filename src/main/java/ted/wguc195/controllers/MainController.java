@@ -104,12 +104,41 @@ public class MainController extends BaseController {
 
     @FXML
     void onActionDeleteAppointment(ActionEvent event) {
-
+        if (appointmentsTableView.getSelectionModel().getSelectedItem() == null) {
+            errorBox("Appointment not selected", "Please select an appointment to delete", "Please try again!");
+            return;
+        }
+        Appointment appointment = appointmentsTableView.getSelectionModel().getSelectedItem();
+        if (confirmBox("Delete Appointment", "Are you sure you want to delete " + appointment.getTitle() + "?",
+                "This action cannot be undone.")) {
+            return;
+        }
+        try {
+            appointmentDao.deleteAppointment(appointment.getAppointmentID());
+            appointmentsTableView.setItems(appointmentDao.getAllAppointments());
+        } catch (SQLException e) {
+            errorBox("Database error", "Could not delete appointment", "Please try again.");
+        }
     }
 
     @FXML
     void onActionDeleteCustomer(ActionEvent event) {
-
+        if (customersTableView.getSelectionModel().getSelectedItem() == null) {
+            errorBox("Customer not selected", "Please select a customer to delete", "Please try again!");
+            return;
+        }
+        Customer customer = customersTableView.getSelectionModel().getSelectedItem();
+        if (confirmBox("Delete Customer", "Are you sure you want to delete " + customer.getCustomerName() + "?",
+                "This action will also delete all appointments associated with this customer. This action cannot be undone.")) {
+            return;
+        }
+        try {
+            customerDao.deleteCustomer(customer.getCustomerID());
+            customersTableView.setItems(customerDao.getAllCustomers());
+            appointmentsTableView.setItems(appointmentDao.getAllAppointments());
+        } catch (SQLException e) {
+            errorBox("Database error", "Could not delete customer", "Please try again.");
+        }
     }
 
     @FXML
@@ -153,6 +182,7 @@ public class MainController extends BaseController {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/views/LoginForm.fxml"), ResourceBundle.getBundle("bundles/lang", userLocale));
         stage.setScene(new Scene(root));
+        SchedulingApplication.setUser(null);
         stage.show();
     }
 
@@ -162,13 +192,25 @@ public class MainController extends BaseController {
     }
 
     @FXML
-    void onActionUpdateAppointment(ActionEvent event) {
-
+    void onActionUpdateAppointment(ActionEvent event) throws IOException {
+        switchScene(event, "/views/UpdateAppointment.fxml");
     }
 
     @FXML
-    void onActionUpdateCustomer(ActionEvent event) {
-
+    void onActionUpdateCustomer(ActionEvent event) throws IOException, SQLException {
+        if (customersTableView.getSelectionModel().getSelectedItem() == null) {
+            errorBox("Customer not selected", "Please select a customer to update", "Please try again!");
+            return;
+        }
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/UpdateCustomer.fxml"));
+        loader.load();
+        UpdateCustomerController updateCustomerController = loader.getController();
+        updateCustomerController.setCustomer(customersTableView.getSelectionModel().getSelectedItem());
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        root = loader.getRoot();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     private void setCustomersTableView() throws SQLException {
