@@ -111,9 +111,8 @@ public abstract class AppointmentController extends BaseController {
         } else {
             errorType.setText("");
         }
-        if (unselectedChecks()) {
-            isValid = false;
-        }
+        if (unselectedChecks()) {return false;}
+        // Handle checks for overlapping appointments and
         return isValid;
     }
 

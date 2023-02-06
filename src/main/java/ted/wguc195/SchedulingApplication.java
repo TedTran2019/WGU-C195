@@ -35,19 +35,6 @@ public class SchedulingApplication extends Application {
     }
 
     /**
-     * Main form: Customers and Appointments (Can be added, updated, deleted) (Table views)
-     * - All customer's appointments must be deleted b4 customer can be deleted
-     * - Text fields collect: name, address, postal code, phone #
-     * - IDs are auto-generated, states/provinces and country data are collected using combo boxes
-     * - Country and state/provinces are prepopulated combo boxes, with first list filtering the second
-     *
-     * - Drop down menu OR combo box for contact name for appointment
-     * - ID autogen, title, description, location, contact, type, start-date and time, end-date and time
-     *
-     * - User can view appointment schedules by month/week using tableview (tabs or radio buttons to pick month/week to filter by)
-     * - Some way to enter date? (Calendar? Text field?)
-     *
-     * - Allow users to adjust appointment times.
      * - Times are stored in UTC, displayed in local time, and checked against EST business hours
      *
      *  - Implement input validation/logical error checks as specified in part D of the rubric
@@ -64,43 +51,10 @@ public class SchedulingApplication extends Application {
      *  - README.txt (not md?) with a bunch of information
      * */
     public static void main(String[] args) {
-        Locale french = new Locale("fr", "FR");
-        Locale.setDefault(french);
-        try {
-            ResourceBundle rb = ResourceBundle.getBundle("bundles/lang", Locale.getDefault());
-            if (Locale.getDefault().getLanguage().equals("fr")) {
-                System.out.println(rb.getString("hello"));
-            }
-        } catch (Exception e) {
-            System.out.println("Resource bundle not found, continuing with default English.");
-        }
+//        Locale french = new Locale("fr", "FR");
+//        Locale.setDefault(french);
         JDBC.openConnection();
         launch();
         JDBC.closeConnection();
-    }
-
-    private static void testCountry() {
-        CountryDaoImpl countryDao = new CountryDaoImpl();
-        try {
-            ObservableList<Country> countries = countryDao.getAllCountries();
-            for (Country country : countries) {
-                System.out.println(country.getCountry());
-            }
-            Country country = countryDao.getCountry(1);
-            System.out.println(country.getCountry());
-            country.setCountry("United States of America");
-            countryDao.updateCountry(country);
-            country = countryDao.getCountry(1);
-            System.out.println(country.getCountry());
-            country.setCountry("USA");
-            countryDao.updateCountry(country);
-            // Adding Japan
-            // country.setCountry("Japan");
-            // countryDao.addCountry(country);
-            // Deleting Japan
-            // countryDao.deleteCountry(4);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
