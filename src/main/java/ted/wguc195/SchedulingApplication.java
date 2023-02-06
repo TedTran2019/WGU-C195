@@ -36,6 +36,11 @@ public class SchedulingApplication extends Application {
 
     /**
      * - Times are stored in UTC, displayed in local time, and checked against EST business hours
+     * For MySqlConnector 8, times are stored as UTC.
+     * When times are entered into the database, they're converted to UTC OR server time depending on what time_zone is set.
+     * However, when times are taken out of the database, they're converted to local time.
+     * Does that mean the connector already did the conversion, so there's no need to do it again w/ LocalDateTime?
+     * It simply doesn't matter. All calculations can be done in LocalDateTime, and the database will handle the conversion.
      *
      *  - Implement input validation/logical error checks as specified in part D of the rubric
      *  - Implement alert when there's an appointment within 15 mins of a user's login (15 mins within local time)
@@ -51,8 +56,8 @@ public class SchedulingApplication extends Application {
      *  - README.txt (not md?) with a bunch of information
      * */
     public static void main(String[] args) {
-//        Locale french = new Locale("fr", "FR");
-//        Locale.setDefault(french);
+        Locale french = new Locale("fr", "FR");
+        Locale.setDefault(french);
         JDBC.openConnection();
         launch();
         JDBC.closeConnection();
