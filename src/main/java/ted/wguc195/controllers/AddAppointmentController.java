@@ -29,6 +29,7 @@ public class AddAppointmentController  extends AppointmentController{
             return;
         }
         if (!getOverlappingAppointments(start, end).isEmpty()) {
+            System.out.println(getOverlappingAppointments(start, end).size());
             errorBox("Date/Time Error", "Overlapping Appointments", "There is already an appointment scheduled during this time block");
             return;
         }

@@ -154,6 +154,30 @@ public abstract class AppointmentController extends BaseController {
         } else {
             datePickerEnd.setStyle("");
         }
+        if (spinnerStartHours.getValue() == null) {
+            spinnerStartHours.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            spinnerStartHours.setStyle("");
+        }
+        if (spinnerStartMinutes.getValue() == null) {
+            spinnerStartMinutes.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            spinnerStartMinutes.setStyle("");
+        }
+        if (spinnerEndHours.getValue() == null) {
+            spinnerEndHours.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            spinnerEndHours.setStyle("");
+        }
+        if (spinnerEndMinutes.getValue() == null) {
+            spinnerEndMinutes.setStyle("-fx-border-color: red");
+            unselected = true;
+        } else {
+            spinnerEndMinutes.setStyle("");
+        }
         return unselected;
     }
 
