@@ -211,7 +211,6 @@ public class AppointmentDaoImpl implements AppointmentDao{
         ps.setTimestamp(4, Timestamp.valueOf(endUTC));
         ps.setTimestamp(5, Timestamp.valueOf(startUTC));
         ps.setTimestamp(6, Timestamp.valueOf(endUTC));
-        System.out.println(ps);
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -251,6 +250,39 @@ public class AppointmentDaoImpl implements AppointmentDao{
         ps.setTimestamp(5, Timestamp.valueOf(endUTC));
         ps.setTimestamp(6, Timestamp.valueOf(startUTC));
         ps.setTimestamp(7, Timestamp.valueOf(endUTC));
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int appointmentID = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String description = rs.getString("Description");
+            String location = rs.getString("Location");
+            String type = rs.getString("Type");
+            Timestamp start = rs.getTimestamp("Start");
+            Timestamp end = rs.getTimestamp("End");
+            Timestamp createDate = rs.getTimestamp("Create_Date");
+            String createdBy = rs.getString("Created_By");
+            Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+            String lastUpdatedBy = rs.getString("Last_Updated_By");
+            int customerID = rs.getInt("Customer_ID");
+            int userID = rs.getInt("User_ID");
+            int contactID = rs.getInt("Contact_ID");
+
+            appointments.add(new Appointment(appointmentID, title, description, location, type, start.toLocalDateTime(),
+                    end.toLocalDateTime(), createDate.toLocalDateTime(), createdBy, lastUpdate.toLocalDateTime(),
+                    lastUpdatedBy, customerID, userID, contactID));
+        }
+        return appointments;
+    }
+
+    @Override
+    public ObservableList<Appointment> getAppointmentsWithin15Minutes(LocalDateTime loginTime) throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM appointments WHERE Start BETWEEN ? AND (? + INTERVAL 15 MINUTE)";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ps.setTimestamp(1, Timestamp.valueOf(loginTime));
+        ps.setTimestamp(2, Timestamp.valueOf(loginTime));
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {

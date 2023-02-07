@@ -48,8 +48,6 @@ public class SchedulingApplication extends Application {
      *  - README.txt (not md?) with a bunch of information
      * */
     public static void main(String[] args) {
-        Locale french = new Locale("fr", "FR");
-        Locale.setDefault(french);
         JDBC.openConnection();
         launch();
         JDBC.closeConnection();

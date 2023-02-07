@@ -9,11 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import ted.wguc195.SchedulingApplication;
+import ted.wguc195.daos.AppointmentDaoImpl;
 import ted.wguc195.daos.UserDaoImpl;
 import ted.wguc195.models.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -28,6 +30,8 @@ public class LoginFormController extends BaseController {
     @FXML
     private Label zoneID;
     private UserDaoImpl userDao = new UserDaoImpl();
+
+    private AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
     private Locale userLocale = Locale.getDefault();
 
     @FXML
@@ -55,6 +59,11 @@ public class LoginFormController extends BaseController {
         }
         SchedulingApplication.setUser(user.getUserName());
         switchScene(event, "/views/Main.fxml");
+        if (appointmentDao.getAppointmentsWithin15Minutes(LocalDateTime.now()).isEmpty()) {
+            confirmBox("Relax", "No appointment within 15 minutes", "You can relax!");
+        } else {
+            confirmBox("Alert!", "Appointment within 15 minutes", "Chop chop, you have an appointment coming up!");
+        }
     }
 
     @FXML
