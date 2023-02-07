@@ -109,13 +109,15 @@ public class MainController extends BaseController {
             return;
         }
         Appointment appointment = appointmentsTableView.getSelectionModel().getSelectedItem();
-        if (confirmBox("Delete Appointment", "Are you sure you want to delete " + appointment.getTitle() + "?",
+        if (confirmBox("Cancel Appointment", "Are you sure you want to cancel " + appointment.getTitle() + "?",
                 "This action cannot be undone.")) {
             return;
         }
         try {
             appointmentDao.deleteAppointment(appointment.getAppointmentID());
             appointmentsTableView.setItems(appointmentDao.getAllAppointments());
+            errorBox("Appointment cancelled", "Appointment " + appointment.getTitle() + " has been cancelled.",
+                    "Appointment ID: " + appointment.getAppointmentID() + " Type: " + appointment.getType() + " has been cancelled.");
         } catch (SQLException e) {
             errorBox("Database error", "Could not delete appointment", "Please try again.");
         }
@@ -136,6 +138,8 @@ public class MainController extends BaseController {
             customerDao.deleteCustomer(customer.getCustomerID());
             customersTableView.setItems(customerDao.getAllCustomers());
             appointmentsTableView.setItems(appointmentDao.getAllAppointments());
+            errorBox("Customer deleted", "Customer " + customer.getCustomerName() + " has been deleted.",
+                    "All associated appointments have also been removed.");
         } catch (SQLException e) {
             errorBox("Database error", "Could not delete customer", "Please try again.");
         }
