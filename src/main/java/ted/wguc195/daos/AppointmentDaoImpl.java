@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class AppointmentDaoImpl implements AppointmentDao{
@@ -199,17 +200,57 @@ public class AppointmentDaoImpl implements AppointmentDao{
     }
 
     @Override
-    public ObservableList<Appointment> getOverlappingAppointments(Timestamp startUTC, Timestamp endUTC) throws SQLException {
+    public ObservableList<Appointment> getOverlappingAppointments(LocalDateTime startUTC, LocalDateTime endUTC) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
         String sql = "SELECT * FROM appointments WHERE (? >= Start AND ? < End) OR (? > Start AND ? <= End) OR (? <= Start AND ? >= End)";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
-        ps.setTimestamp(1, startUTC);
-        ps.setTimestamp(2, startUTC);
-        ps.setTimestamp(3, endUTC);
-        ps.setTimestamp(4, endUTC);
-        ps.setTimestamp(5, startUTC);
-        ps.setTimestamp(6, endUTC);
+        ps.setTimestamp(1, Timestamp.valueOf(startUTC));
+        ps.setTimestamp(2, Timestamp.valueOf(startUTC));
+        ps.setTimestamp(3, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(4, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(5, Timestamp.valueOf(startUTC));
+        ps.setTimestamp(6, Timestamp.valueOf(endUTC));
+        System.out.println(ps);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int appointmentID = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String description = rs.getString("Description");
+            String location = rs.getString("Location");
+            String type = rs.getString("Type");
+            Timestamp start = rs.getTimestamp("Start");
+            Timestamp end = rs.getTimestamp("End");
+            Timestamp createDate = rs.getTimestamp("Create_Date");
+            String createdBy = rs.getString("Created_By");
+            Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+            String lastUpdatedBy = rs.getString("Last_Updated_By");
+            int customerID = rs.getInt("Customer_ID");
+            int userID = rs.getInt("User_ID");
+            int contactID = rs.getInt("Contact_ID");
+
+            appointments.add(new Appointment(appointmentID, title, description, location, type, start.toLocalDateTime(),
+                    end.toLocalDateTime(), createDate.toLocalDateTime(), createdBy, lastUpdate.toLocalDateTime(),
+                    lastUpdatedBy, customerID, userID, contactID));
+        }
+        return appointments;
+    }
+
+    @Override
+    public ObservableList<Appointment> getOverlappingAppointmentsMinusSelf(LocalDateTime startUTC, LocalDateTime endUTC, int ID) throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM (SELECT * FROM appointments WHERE Appointment_ID != ?) AS minus " +
+                "WHERE (? >= Start AND ? < End) OR (? > Start AND ? <= End) OR (? <= Start AND ? >= End)";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ps.setInt(1, ID);
+        ps.setTimestamp(2, Timestamp.valueOf(startUTC));
+        ps.setTimestamp(3, Timestamp.valueOf(startUTC));
+        ps.setTimestamp(4, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(5, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(6, Timestamp.valueOf(startUTC));
+        ps.setTimestamp(7, Timestamp.valueOf(endUTC));
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {

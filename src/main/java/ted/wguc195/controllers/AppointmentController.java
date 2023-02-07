@@ -210,12 +210,6 @@ public abstract class AppointmentController extends BaseController {
         return (time.getHour() < 8 || time.getHour() > 22 || (time.getHour() == 22 && time.getMinute() > 0));
     }
 
-    protected ObservableList<Appointment> getOverlappingAppointments(LocalDateTime start, LocalDateTime end) throws SQLException {
-        Timestamp startUTC = Timestamp.valueOf(convertLocalToUTC(start).toLocalDateTime());
-        Timestamp endUTC = Timestamp.valueOf(convertLocalToUTC(end).toLocalDateTime());
-        return appointmentDao.getOverlappingAppointments(startUTC, endUTC);
-    }
-
     protected LocalDateTime getLocalDateTime(LocalDate date, int hours, int minutes) {
         return date.atTime(hours, minutes);
     }

@@ -25,8 +25,7 @@ public class UpdateAppointmentController extends AppointmentController {
         if (!validateTimes(start, end)) {
             return;
         }
-        if (!(getOverlappingAppointments(start, end).size() == 1)) {
-            System.out.println(getOverlappingAppointments(start, end).size());
+        if (!appointmentDao.getOverlappingAppointmentsMinusSelf(start, end, this.appointment.getAppointmentID()).isEmpty()) {
             errorBox("Date/Time Error", "Overlapping Appointments", "There is already an appointment scheduled during this time block");
             return;
         }
