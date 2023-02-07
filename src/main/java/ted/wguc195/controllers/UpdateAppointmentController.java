@@ -25,13 +25,13 @@ public class UpdateAppointmentController extends AppointmentController {
         if (!validateTimes(start, end)) {
             return;
         }
-        if (!appointmentDao.getOverlappingAppointmentsMinusSelf(start, end, this.appointment.getAppointmentID()).isEmpty()) {
-            errorBox("Date/Time Error", "Overlapping Appointments", "There is already an appointment scheduled during this time block");
-            return;
-        }
         int customer = comboBoxCustomer.getValue().getCustomerID();
         int user = comboBoxUser.getValue().getUserID();
         int contact = comboBoxContact.getValue().getContactID();
+        if (!appointmentDao.getOverlappingAppointmentsMinusSelf(start, end, this.appointment.getAppointmentID(), customer).isEmpty()) {
+            errorBox("Date/Time Error", "Overlapping Appointments", "There is already an appointment scheduled during this time block");
+            return;
+        }
         Appointment appointment = new Appointment(this.appointment.getAppointmentID(), title, description, location, type, start, end,
                 this.appointment.getCreateDate(), this.appointment.getCreatedBy(), LocalDateTime.now(), SchedulingApplication.getUser(),
                 customer, user, contact);

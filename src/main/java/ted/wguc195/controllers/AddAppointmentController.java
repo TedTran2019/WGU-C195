@@ -28,13 +28,13 @@ public class AddAppointmentController  extends AppointmentController{
         if (!validateTimes(start, end)) {
             return;
         }
-        if (!appointmentDao.getOverlappingAppointments(start, end).isEmpty()) {
-            errorBox("Date/Time Error", "Overlapping Appointments", "There is already an appointment scheduled during this time block");
-            return;
-        }
         int customer = comboBoxCustomer.getValue().getCustomerID();
         int user = comboBoxUser.getValue().getUserID();
         int contact = comboBoxContact.getValue().getContactID();
+        if (!appointmentDao.getOverlappingAppointments(start, end, customer).isEmpty()) {
+            errorBox("Date/Time Error", "Overlapping Appointments", "There is already an appointment scheduled during this time block");
+            return;
+        }
         Appointment appointment = new Appointment(1337, title, description, location, type, start, end,
                 LocalDateTime.now(), SchedulingApplication.getUser(), LocalDateTime.now(), SchedulingApplication.getUser(),
                 customer, user, contact);

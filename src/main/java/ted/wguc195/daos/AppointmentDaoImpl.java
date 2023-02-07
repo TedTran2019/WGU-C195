@@ -200,17 +200,19 @@ public class AppointmentDaoImpl implements AppointmentDao{
     }
 
     @Override
-    public ObservableList<Appointment> getOverlappingAppointments(LocalDateTime startUTC, LocalDateTime endUTC) throws SQLException {
+    public ObservableList<Appointment> getOverlappingAppointments(LocalDateTime startUTC, LocalDateTime endUTC, int custID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM appointments WHERE (? >= Start AND ? < End) OR (? > Start AND ? <= End) OR (? <= Start AND ? >= End)";
+        String sql = "SELECT * FROM (SELECT * FROM appointments WHERE Customer_ID = ?) AS minus " +
+                "WHERE (? >= Start AND ? < End) OR (? > Start AND ? <= End) OR (? <= Start AND ? >= End)";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
-        ps.setTimestamp(1, Timestamp.valueOf(startUTC));
+        ps.setInt(1, custID);
         ps.setTimestamp(2, Timestamp.valueOf(startUTC));
-        ps.setTimestamp(3, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(3, Timestamp.valueOf(startUTC));
         ps.setTimestamp(4, Timestamp.valueOf(endUTC));
-        ps.setTimestamp(5, Timestamp.valueOf(startUTC));
-        ps.setTimestamp(6, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(5, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(6, Timestamp.valueOf(startUTC));
+        ps.setTimestamp(7, Timestamp.valueOf(endUTC));
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -237,19 +239,20 @@ public class AppointmentDaoImpl implements AppointmentDao{
     }
 
     @Override
-    public ObservableList<Appointment> getOverlappingAppointmentsMinusSelf(LocalDateTime startUTC, LocalDateTime endUTC, int ID) throws SQLException {
+    public ObservableList<Appointment> getOverlappingAppointmentsMinusSelf(LocalDateTime startUTC, LocalDateTime endUTC, int ID, int custID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM (SELECT * FROM appointments WHERE Appointment_ID != ?) AS minus " +
+        String sql = "SELECT * FROM (SELECT * FROM appointments WHERE Appointment_ID != ? AND Customer_ID = ?) AS minus " +
                 "WHERE (? >= Start AND ? < End) OR (? > Start AND ? <= End) OR (? <= Start AND ? >= End)";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
         ps.setInt(1, ID);
-        ps.setTimestamp(2, Timestamp.valueOf(startUTC));
+        ps.setInt(2, custID);
         ps.setTimestamp(3, Timestamp.valueOf(startUTC));
-        ps.setTimestamp(4, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(4, Timestamp.valueOf(startUTC));
         ps.setTimestamp(5, Timestamp.valueOf(endUTC));
-        ps.setTimestamp(6, Timestamp.valueOf(startUTC));
-        ps.setTimestamp(7, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(6, Timestamp.valueOf(endUTC));
+        ps.setTimestamp(7, Timestamp.valueOf(startUTC));
+        ps.setTimestamp(8, Timestamp.valueOf(endUTC));
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
