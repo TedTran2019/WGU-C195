@@ -11,12 +11,14 @@ import javafx.stage.Stage;
 import ted.wguc195.SchedulingApplication;
 import ted.wguc195.daos.AppointmentDaoImpl;
 import ted.wguc195.daos.UserDaoImpl;
+import ted.wguc195.models.Appointment;
 import ted.wguc195.models.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -59,10 +61,20 @@ public class LoginFormController extends BaseController {
         }
         SchedulingApplication.setUser(user.getUserName());
         switchScene(event, "/views/Main.fxml");
-        if (appointmentDao.getAppointmentsWithin15Minutes(LocalDateTime.now()).isEmpty()) {
+        alertAppointments();
+    }
+
+    private void alertAppointments() throws SQLException {
+        ObservableList<Appointment> appointmentsWithin15Minutes = appointmentDao.getAppointmentsWithin15Minutes(LocalDateTime.now());
+        if (appointmentsWithin15Minutes.isEmpty()) {
             confirmBox("Relax", "No appointment within 15 minutes", "You can relax!");
         } else {
-            confirmBox("Alert!", "Appointment within 15 minutes", "Chop chop, you have an appointment coming up!");
+            String content = "Chop chop, you have an appointment coming up!";
+            for (Appointment appointment : appointmentsWithin15Minutes) {
+                String readableDate = appointment.getStart().format(DateTimeFormatter.ofPattern("MMM dd, yyyy  |  HH:mm"));
+                content += "\nID: " + appointment.getAppointmentID() + " on " + readableDate;
+            };
+            confirmBox("Alert!", "Appointment(s) within 15 minutes", content);
         }
     }
 
