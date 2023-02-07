@@ -21,4 +21,6 @@ public interface AppointmentDao {
     public ObservableList<Appointment> getOverlappingAppointments(LocalDateTime start, LocalDateTime end, int custID) throws SQLException;
     public ObservableList<Appointment> getOverlappingAppointmentsMinusSelf(LocalDateTime start, LocalDateTime end, int ID, int custID) throws SQLException;
     public ObservableList<Appointment> getAppointmentsWithin15Minutes(LocalDateTime loginTime) throws SQLException;
+    public ObservableList<Appointment> getAllAppointmentsSortedByDate() throws SQLException;
+    public ObservableList<Appointment> getAllAppointmentsByContactID(int contactID) throws SQLException;
 }
