@@ -36,7 +36,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="800.0">
                <children>
-                  <RadioButton mnemonicParsing="false" onAction="#onActionCustAppType" text="Customer Appointments: Type">
+                  <RadioButton fx:id="radioButtonType" mnemonicParsing="false" onAction="#onActionCustAppType" text="Customer Appointments: Type">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -47,7 +47,7 @@
                         <ToggleGroup fx:id="toggleReports" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onActionCustAppMonth" text="Customer Appointments: Month" toggleGroup="$toggleReports">
+                  <RadioButton fx:id="radioButtonMonth" mnemonicParsing="false" onAction="#onActionCustAppMonth" text="Customer Appointments: Month" toggleGroup="$toggleReports">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -55,7 +55,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onActionContactSchedule" text="Contact Schedule" toggleGroup="$toggleReports">
+                  <RadioButton fx:id="radioButtonContact" mnemonicParsing="false" onAction="#onActionContactSchedule" text="Contact Schedule" toggleGroup="$toggleReports">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -63,7 +63,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onAction="#onActionUserLogins" text="User Logins" toggleGroup="$toggleReports">
+                  <RadioButton fx:id="radioButtonUser" mnemonicParsing="false" onAction="#onActionUserLogins" text="User Logins" toggleGroup="$toggleReports">
                      <font>
                         <Font size="14.0" />
                      </font>

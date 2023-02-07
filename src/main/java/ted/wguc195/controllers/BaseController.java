@@ -39,6 +39,14 @@ public abstract class BaseController {
         stage.show();
     }
 
+    @FXML
+    protected void switchSceneRadioButton(ActionEvent event, String sceneName) throws IOException {
+        stage = (Stage)((RadioButton)event.getSource()).getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource(sceneName));
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
     /**
      * This method is called when the user clicks on the 'Cancel' button.
      * It returns the user to the main screen.

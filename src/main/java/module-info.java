@@ -7,6 +7,7 @@ module ted.wguc195 {
     opens ted.wguc195 to javafx.fxml;
     opens ted.wguc195.utils to javafx.fxml;
     opens ted.wguc195.controllers to javafx.fxml;
+    opens ted.wguc195.controllers.reports to javafx.fxml;
     opens ted.wguc195.models to javafx.base;
 
     exports ted.wguc195;
