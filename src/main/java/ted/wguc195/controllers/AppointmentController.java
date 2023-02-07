@@ -191,4 +191,8 @@ public abstract class AppointmentController extends BaseController {
         Timestamp endUTC = Timestamp.valueOf(convertLocalToUTC(end).toLocalDateTime());
         return appointmentDao.getOverlappingAppointments(startUTC, endUTC);
     }
+
+    protected LocalDateTime getLocalDateTime(LocalDate date, int hours, int minutes) {
+        return date.atTime(hours, minutes);
+    }
 }

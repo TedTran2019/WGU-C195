@@ -42,10 +42,6 @@ public class AddAppointmentController  extends AppointmentController{
         switchScene(event, "/views/Main.fxml");
     }
 
-    private LocalDateTime getLocalDateTime(LocalDate date, int hours, int minutes) {
-        return date.atTime(hours, minutes);
-    }
-
     public void initialize() throws SQLException {
         setComboBoxes();
         setSpinners();

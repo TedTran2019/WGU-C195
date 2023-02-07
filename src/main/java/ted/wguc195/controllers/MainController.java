@@ -192,8 +192,20 @@ public class MainController extends BaseController {
     }
 
     @FXML
-    void onActionUpdateAppointment(ActionEvent event) throws IOException {
-        switchScene(event, "/views/UpdateAppointment.fxml");
+    void onActionUpdateAppointment(ActionEvent event) throws IOException, SQLException {
+        if (appointmentsTableView.getSelectionModel().getSelectedItem() == null) {
+            errorBox("Appointment not selected", "Please select an appointment to update", "Please try again!");
+            return;
+        }
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/UpdateAppointment.fxml"));
+        loader.load();
+        UpdateAppointmentController updateAppointmentController = loader.getController();
+        updateAppointmentController.setAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        root = loader.getRoot();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
