@@ -18,6 +18,10 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the base class for all controllers.
+ * It contains methods that are common to all controllers.
+ */
 public abstract class BaseController {
     protected Stage stage;
     protected Parent root;
@@ -41,6 +45,11 @@ public abstract class BaseController {
         stage.show();
     }
 
+    /**
+     * This method loads the scene specified by sceneName (but for RadioButton events).
+     * @param event
+     * @param sceneName The name (fxml filename) of the scene to load
+     */
     @FXML
     protected void switchSceneRadioButton(ActionEvent event, String sceneName) throws IOException {
         stage = (Stage)((RadioButton)event.getSource()).getScene().getWindow();
@@ -104,10 +113,17 @@ public abstract class BaseController {
         return translatedText;
     }
 
+    /**
+     * Converts a LocalDateTime to a ZonedDateTime in the EST time zone.
+     */
     protected ZonedDateTime convertLocalToEST(LocalDateTime time) {
         return time.atZone(defaultZoneID).withZoneSameInstant(ESTzoneID);
     }
 
+    /**
+     * Converts a LocalDateTime to a ZonedDateTime in the UTC time zone.
+     * This method was unnecessary due to MySQL Connector/J's automatic conversion of local time to UTC when inserting into the database.
+     */
     protected ZonedDateTime convertLocalToUTC(LocalDateTime time) {
         return time.atZone(defaultZoneID).withZoneSameInstant(UTCzoneID);
     }

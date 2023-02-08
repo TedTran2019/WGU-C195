@@ -12,9 +12,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * Controller for the UpdateCustomer form
+ */
 public class UpdateCustomerController extends CustomerController {
     private Customer customer;
 
+    /**
+     * Updates the customer in the database and switches to the main form
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws SQLException, IOException {
         String customerName = textFieldName.getText();
@@ -32,6 +41,11 @@ public class UpdateCustomerController extends CustomerController {
         switchScene(event, "/views/Main.fxml");
     }
 
+    /**
+     * Sets the customer to be updated
+     * @param customer
+     * @throws SQLException
+     */
     public void setCustomer(Customer customer) throws SQLException {
         this.customer = customer;
         textFieldID.setText(Integer.toString(customer.getCustomerID()));

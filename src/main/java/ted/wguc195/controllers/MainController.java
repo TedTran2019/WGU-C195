@@ -21,6 +21,9 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the Main view.
+ */
 public class MainController extends BaseController {
 
     @FXML
@@ -92,16 +95,28 @@ public class MainController extends BaseController {
     private CustomerDaoImpl customerDao = new CustomerDaoImpl();
     private AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
 
+    /**
+     * Switches the scene to the AddAppointment view.
+     * @param event
+     */
     @FXML
     void onActionAddAppointment(ActionEvent event) throws IOException {
         switchScene(event, "/views/AddAppointment.fxml");
     }
 
+    /**
+     * Switches the scene to the AddCustomer view.
+     * @param event
+     */
     @FXML
     void onActionAddCustomer(ActionEvent event) throws IOException {
         switchScene(event, "/views/AddCustomer.fxml");
     }
 
+    /**
+     * Deletes the selected appointment.
+     * @param event
+     */
     @FXML
     void onActionDeleteAppointment(ActionEvent event) {
         if (appointmentsTableView.getSelectionModel().getSelectedItem() == null) {
@@ -123,6 +138,10 @@ public class MainController extends BaseController {
         }
     }
 
+    /**
+     * Deletes the selected customer.
+     * @param event
+     */
     @FXML
     void onActionDeleteCustomer(ActionEvent event) {
         if (customersTableView.getSelectionModel().getSelectedItem() == null) {
@@ -145,6 +164,10 @@ public class MainController extends BaseController {
         }
     }
 
+    /**
+     * If a date has been selected, enables the week and month radio buttons.
+     * @param event
+     */
     @FXML
     void onActionATVFilterDate(ActionEvent event) {
         if (atvFilterDate.getValue() == null) {
@@ -156,12 +179,20 @@ public class MainController extends BaseController {
         }
     }
 
+    /**
+     * Sets the appointments table view to show all appointments.
+     * @param event
+     */
     @FXML
     void onActionFilterAll(ActionEvent event) throws SQLException {
         atvFilterDate.setValue(null);
         appointmentsTableView.setItems(appointmentDao.getAllAppointments());
     }
 
+    /**
+     * Sets the appointments table view to show appointments for the selected month.
+     * @param event
+     */
     @FXML
     void onActionFilterMonth(ActionEvent event) throws SQLException {
         if (atvFilterDate.getValue() == null) {
@@ -171,6 +202,10 @@ public class MainController extends BaseController {
         appointmentsTableView.setItems(appointmentDao.getAppointmentsByMonth(atvFilterDate.getValue()));
     }
 
+    /**
+     * Sets the appointments table view to show appointments for the selected week.
+     * @param event
+     */
     @FXML
     void onActionFilterWeek(ActionEvent event) throws SQLException {
         if (atvFilterDate.getValue() == null) {
@@ -180,6 +215,10 @@ public class MainController extends BaseController {
         appointmentsTableView.setItems(appointmentDao.getAppointmentsByWeek(atvFilterDate.getValue()));
     }
 
+    /**
+     * Switches the scene to the LoginForm view aka logouts the user.
+     * @param event
+     */
     @FXML
     void onActionLogout(ActionEvent event) throws IOException {
         Locale userLocale = Locale.getDefault();
@@ -191,11 +230,19 @@ public class MainController extends BaseController {
         stage.show();
     }
 
+    /**
+     * Switches the scene to the Reports view.
+     * @param event
+     */
     @FXML
     void onActionReports(ActionEvent event) throws IOException {
         switchScene(event, "/views/Reports.fxml");
     }
 
+    /**
+     * Switches the scene to the UpdateAppointment view.
+     * @param event
+     */
     @FXML
     void onActionUpdateAppointment(ActionEvent event) throws IOException, SQLException {
         if (appointmentsTableView.getSelectionModel().getSelectedItem() == null) {
@@ -214,6 +261,10 @@ public class MainController extends BaseController {
         stage.show();
     }
 
+    /**
+     * Switches the scene to the UpdateCustomer view.
+     * @param event
+     */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws IOException, SQLException {
         if (customersTableView.getSelectionModel().getSelectedItem() == null) {
@@ -232,6 +283,9 @@ public class MainController extends BaseController {
         stage.show();
     }
 
+    /**
+     * Sets up the customers TableView
+     */
     private void setCustomersTableView() throws SQLException {
         customersTableView.setItems(customerDao.getAllCustomers());
         ctvID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
@@ -250,6 +304,9 @@ public class MainController extends BaseController {
         });
     }
 
+    /**
+     * Sets up the appointments TableView
+     */
     private void setAppointmentsTableView() throws SQLException {
         appointmentsTableView.setItems(appointmentDao.getAllAppointments());
         atvID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));

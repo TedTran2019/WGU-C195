@@ -9,8 +9,17 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * Controller to handle the UpdateAppointment fxml view.
+ */
 public class UpdateAppointmentController extends AppointmentController {
     private Appointment appointment;
+    /**
+     * Updates the appointment in the database and switches to the main view.
+     * @param event The event that triggered this method.
+     * @throws SQLException If there is an error with the database.
+     * @throws IOException  If there is an error with the file system.
+     */
     @FXML
     void onActionUpdateAppointment(ActionEvent event) throws SQLException, IOException {
         String title = textFieldTitle.getText();
@@ -39,6 +48,11 @@ public class UpdateAppointmentController extends AppointmentController {
         switchScene(event, "/views/Main.fxml");
     }
 
+    /**
+     * Sets the appointment to be updated.
+     * @param appointment The appointment to be updated.
+     * @throws SQLException If there is an error with the database.
+     */
     public void setAppointment(Appointment appointment) throws SQLException {
         this.appointment = appointment;
         textFieldAppointmentID.setText(Integer.toString(appointment.getAppointmentID()));

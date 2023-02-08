@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * The controller that handles the Reports view.
+ */
 public class ReportsController extends BaseController {
     @FXML
     protected ToggleGroup toggleReports;
@@ -62,21 +65,41 @@ public class ReportsController extends BaseController {
     private void onActionComboBox(ActionEvent event) {
     }
 
+    /**
+     * Switches the scene to the ReportsContact view.
+     * @param event The event that triggered the method.
+     * @throws IOException
+     */
     @FXML
     protected void onActionContactSchedule(ActionEvent event) throws IOException {
         switchSceneRadioButton(event, "/views/reports/ReportsContact.fxml");
     }
 
+    /**
+     * Switches the scene to the ReportsMonth view.
+     * @param event The event that triggered the method.
+     * @throws IOException
+     */
     @FXML
     protected void onActionCustAppMonth(ActionEvent event) throws IOException {
         switchSceneRadioButton(event, "/views/reports/ReportsMonth.fxml");
     }
 
+    /**
+     * Switches the scene to the ReportsType view.
+     * @param event The event that triggered the method.
+     * @throws IOException
+     */
     @FXML
     protected void onActionCustAppType(ActionEvent event) throws IOException {
         switchSceneRadioButton(event, "/views/reports/ReportsType.fxml");
     }
 
+    /**
+     * Switches the scene to the ReportsUser view.
+     * @param event The event that triggered the method.
+     * @throws IOException
+     */
     @FXML
     protected void onActionUserLogins(ActionEvent event) throws IOException {
         switchSceneRadioButton(event, "/views/reports/ReportsUser.fxml");
@@ -87,6 +110,9 @@ public class ReportsController extends BaseController {
         labelReportsCounter.setVisible(false);
     }
 
+    /**
+     * Initializes the table view with all appointments and sets the counter label.
+     */
     protected void appointmentsInitialize() throws SQLException {
         setReportsAppointmentsTable();
         ObservableList<Appointment> appointments = appointmentDao.getAllAppointmentsSortedByDate();
@@ -94,6 +120,9 @@ public class ReportsController extends BaseController {
         labelReportsCounter.setText("Total Appointments: " + appointments.size());
     }
 
+    /**
+     * Sets the TableView columns to the appropriate values.
+     */
     private void setReportsAppointmentsTable() throws SQLException {
         colID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));

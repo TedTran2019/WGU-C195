@@ -16,6 +16,9 @@ import javafx.scene.control.ListCell;
 
 import java.sql.SQLException;
 
+/**
+ * Abstract controller for the Customer views.
+ */
 public abstract class CustomerController extends BaseController {
     @FXML
     protected ComboBox<Country> comboBoxCountry;
@@ -55,6 +58,12 @@ public abstract class CustomerController extends BaseController {
     protected DivisionDaoImpl divisionDao = new DivisionDaoImpl();
     protected CustomerDaoImpl customerDao = new CustomerDaoImpl();
 
+    /**
+     * This method is called when the user selects a country from the country combo box. It sets the division combo box
+     * to the divisions from the selected country, and enables the division combo box.
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     protected void onActionCountryCB(ActionEvent event) throws SQLException {
         int countryID = comboBoxCountry.getValue().getCountryID();
@@ -70,10 +79,16 @@ public abstract class CustomerController extends BaseController {
         }
     }
 
+    /**
+     * This method sets the country combo box to all countries in the database.
+     */
     protected void setCountryCB() throws SQLException {
         comboBoxCountry.setItems(countryDao.getAllCountries());
     }
 
+    /**
+     * This method sets the prompt text for the division combo box.
+     */
     protected void setDivisionCBPromptText() {
         comboBoxDivision.setButtonCell(new ListCell<>() {
             @Override

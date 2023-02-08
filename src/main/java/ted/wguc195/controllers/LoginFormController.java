@@ -23,6 +23,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the login form.
+ */
 public class LoginFormController extends BaseController {
     @FXML
     private ComboBox<String> languageComboBox;
@@ -37,6 +40,12 @@ public class LoginFormController extends BaseController {
     private AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
     private Locale userLocale = Locale.getDefault();
 
+    /**
+     * Logs the user in if the username and password are valid.
+     * @param event the event that triggered this method
+     * @throws SQLException if there is an error with the database
+     * @throws IOException if there is an error with the file IO
+     */
     @FXML
     void onActionLogin(ActionEvent event) throws SQLException, IOException {
         String userName = this.userName.getText();
@@ -79,6 +88,10 @@ public class LoginFormController extends BaseController {
                 + LocalDateTime.now() + "," + success + "," + reasonForFailure);
     }
 
+    /**
+     * Alerts the user if they have an appointment within 15 minutes.
+     * @throws SQLException if there is an error with the database
+     */
     private void alertAppointments() throws SQLException {
         ObservableList<Appointment> appointmentsWithin15Minutes = appointmentDao.getAppointmentsWithin15Minutes(LocalDateTime.now());
         if (appointmentsWithin15Minutes.isEmpty()) {
@@ -93,6 +106,11 @@ public class LoginFormController extends BaseController {
         }
     }
 
+    /**
+     * Switches the language of the application between French and English.
+     * @param event the event that triggered this method
+     * @throws IOException if there is an error with the file IO
+     */
     @FXML
     void languageComboBoxAction(ActionEvent event) throws IOException {
         String language = languageComboBox.getValue();
@@ -110,6 +128,9 @@ public class LoginFormController extends BaseController {
         stage.show();
     }
 
+    /**
+     * Sets up the language combo box based on the user's locale.
+     */
     private void setupComboBox() {
         if (userLocale.getLanguage().equals("fr")) {
             languageComboBox.setValue("Français");
