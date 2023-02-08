@@ -38,7 +38,6 @@ public class SchedulingApplication extends Application {
      *  Provide reports on the following:
      *  - Additional report based on user login date and time stamp from login attempts
      *
-     *  - Two lambdas in code
      *  - Track user activity by recording all login attempts (along w/ date and timestamps + success) to a text file
      *  - Javadocs
      *  - README.txt (not md?) with a bunch of information

@@ -13,6 +13,7 @@ import ted.wguc195.daos.AppointmentDaoImpl;
 import ted.wguc195.daos.UserDaoImpl;
 import ted.wguc195.models.Appointment;
 import ted.wguc195.models.User;
+import ted.wguc195.utils.FileIO;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -48,6 +49,7 @@ public class LoginFormController extends BaseController {
             else {
                 errorBox("Invalid username", "User not found", "Please enter a valid username");
             }
+            logUser(false);
             return;
         }
         if (!user.getPassword().equals(password)) {
@@ -57,11 +59,19 @@ public class LoginFormController extends BaseController {
             else {
                 errorBox("Invalid password", "Password incorrect", "Please enter a valid password");
             }
+            logUser(false);
             return;
         }
+        logUser(true);
         SchedulingApplication.setUser(user.getUserName());
         switchScene(event, "/views/Main.fxml");
         alertAppointments();
+    }
+
+    private void logUser(boolean success) {
+        FileIO.writeToFile("login_activity.txt", "TEST");
+        String string = FileIO.readFromFile("login_activity.txt");
+        System.out.println(string);
     }
 
     private void alertAppointments() throws SQLException {
