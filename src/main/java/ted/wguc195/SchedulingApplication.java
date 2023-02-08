@@ -59,14 +59,14 @@ public class SchedulingApplication extends Application {
                         System.exit(0);
                     } else if (getLocation().equals("/views/Main.fxml")) {
                         targetLocation = "/views/LoginForm.fxml";
+                        setUser(null);
                     } else {
                         targetLocation = "/views/Main.fxml";
                     }
                     event.consume();
                     root = FXMLLoader.load(getClass().getResource(targetLocation), ResourceBundle.getBundle("bundles/lang", Locale.getDefault()));
-                    if (targetLocation.equals("/views/LoginForm.fxml")) { setUser(null); }
                     Scene newScene = new Scene(root);
-                    setLocation("/views/Main.fxml");
+                    setLocation(targetLocation);
                     stage.setScene(newScene);
                     stage.show();
                 } catch (IOException e) {
