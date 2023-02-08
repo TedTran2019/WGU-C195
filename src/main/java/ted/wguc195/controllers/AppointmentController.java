@@ -106,6 +106,7 @@ public abstract class AppointmentController extends BaseController {
     }
 
     /**
+     * LAMBDA USED HERE. I used the lambda to check if the newValue is a number, if it's not, I reset back to the previous.
      * Sets the listener for the spinner to prevent non-numeric values from being entered
      * @param spinner The spinner to set the listener for
      */

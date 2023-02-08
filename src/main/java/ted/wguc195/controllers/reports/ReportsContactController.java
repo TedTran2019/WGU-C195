@@ -46,6 +46,7 @@ public class ReportsContactController extends ReportsController {
     }
 
     /**
+     * LAMBDA USED HERE. I used it to modify the table view so that appointments that have already passed are highlighted in red.
      * This makes it so that appointments that have already passed are highlighted in red.
      */
     private void showExpiredAppointments() {

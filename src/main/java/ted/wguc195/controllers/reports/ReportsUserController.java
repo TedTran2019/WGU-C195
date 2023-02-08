@@ -59,6 +59,7 @@ public class ReportsUserController extends ReportsController {
     }
 
     /**
+     * LAMBDA USED HERE. I used it to format the date column to display the date and time in a more readable format.
      * Sets the table view columns to the correct properties of the UserLog class.
      * Also formats the date column to display the date and time in a more readable format.
      */

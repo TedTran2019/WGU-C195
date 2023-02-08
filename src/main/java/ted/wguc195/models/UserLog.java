@@ -13,6 +13,7 @@ public class UserLog {
     private String failureReason;
 
     /**
+     * LAMBDA USED HERE. The lambda is used to split the string by a comma delimiter, then use the resulting strings as fields for the UserLog object.
      * Returns all user logs from the login_activity.txt file.
      * @return ObservableList of UserLog objects
      */
@@ -26,6 +27,8 @@ public class UserLog {
     }
 
     /**
+     * LAMBDA USED HERE. The lambda is used to split the string by a comma delimiter, then use the resulting strings as fields for the UserLog object
+     * if the username in the field matches the given username.
      * Returns all user logs for a given user from the login_activity.txt file.
      * @param userName The username to search for
      * @return ObservableList of UserLog objects

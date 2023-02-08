@@ -284,6 +284,7 @@ public class MainController extends BaseController {
     }
 
     /**
+     * LAMBDA USED HERE. I use it to get the Division name from the DivisionID in the Customer object.
      * Sets up the customers TableView
      */
     private void setCustomersTableView() throws SQLException {
@@ -305,6 +306,7 @@ public class MainController extends BaseController {
     }
 
     /**
+     * LAMBDA USED HERE. I use it to get the Contact name from ContactID in the Appointment object.
      * Sets up the appointments TableView
      */
     private void setAppointmentsTableView() throws SQLException {
