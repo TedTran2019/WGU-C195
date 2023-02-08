@@ -49,7 +49,7 @@ public class LoginFormController extends BaseController {
             else {
                 errorBox("Invalid username", "User not found", "Please enter a valid username");
             }
-            logUser(false, "User not found");
+            logUser(false, "User not found", userName);
             return;
         }
         if (!user.getPassword().equals(password)) {
@@ -59,10 +59,10 @@ public class LoginFormController extends BaseController {
             else {
                 errorBox("Invalid password", "Password incorrect", "Please enter a valid password");
             }
-            logUser(false, "Incorrect password");
+            logUser(false, "Incorrect password", userName);
             return;
         }
-        logUser(true, "NA");
+        logUser(true, "NA", userName);
         SchedulingApplication.setUser(user.getUserName());
         switchScene(event, "/views/Main.fxml");
         alertAppointments();
@@ -74,8 +74,8 @@ public class LoginFormController extends BaseController {
      * @param success whether the login was successful or not
      * @param reasonForFailure the reason for failure, if applicable
      */
-    private void logUser(boolean success, String reasonForFailure) {
-        FileIO.writeToFile("login_activity.txt", SchedulingApplication.getUser() + ","
+    private void logUser(boolean success, String reasonForFailure, String userName) {
+        FileIO.writeToFile("login_activity.txt", userName + ","
                 + LocalDateTime.now() + "," + success + "," + reasonForFailure);
     }
 
