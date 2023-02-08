@@ -89,6 +89,18 @@ public abstract class AppointmentController extends BaseController {
         spinnerStartMinutes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
         spinnerEndHours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
         spinnerEndMinutes.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+        setSpinnerListener(spinnerStartHours);
+        setSpinnerListener(spinnerStartMinutes);
+        setSpinnerListener(spinnerEndHours);
+        setSpinnerListener(spinnerEndMinutes);
+    }
+
+    private void setSpinnerListener(Spinner<Integer> spinner) {
+        spinner.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d+")) {
+                spinner.getEditor().setText(oldValue);
+            }
+        });
     }
 
     protected boolean validateFields(String title, String description, String location, String type) {

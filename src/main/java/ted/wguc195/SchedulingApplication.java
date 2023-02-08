@@ -35,11 +35,7 @@ public class SchedulingApplication extends Application {
     }
 
     /**
-     *  - Implement alert when there's an appointment within 15 mins of a user's login (15 mins within local time)
-     *
      *  Provide reports on the following:
-     *  - total # of customer appointments by type and month
-     *  - schedule for each contact in organization (sort by earliest to latest)
      *  - Additional report based on user login date and time stamp from login attempts
      *
      *  - Two lambdas in code
