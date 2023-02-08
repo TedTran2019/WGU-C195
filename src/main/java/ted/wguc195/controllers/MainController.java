@@ -187,6 +187,7 @@ public class MainController extends BaseController {
         root = FXMLLoader.load(getClass().getResource("/views/LoginForm.fxml"), ResourceBundle.getBundle("bundles/lang", userLocale));
         stage.setScene(new Scene(root));
         SchedulingApplication.setUser(null);
+        SchedulingApplication.setLocation("/views/LoginForm.fxml");
         stage.show();
     }
 
@@ -209,6 +210,7 @@ public class MainController extends BaseController {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         root = loader.getRoot();
         stage.setScene(new Scene(root));
+        SchedulingApplication.setLocation("/views/UpdateAppointment.fxml");
         stage.show();
     }
 
@@ -226,6 +228,7 @@ public class MainController extends BaseController {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         root = loader.getRoot();
         stage.setScene(new Scene(root));
+        SchedulingApplication.setLocation("/views/UpdateCustomer.fxml");
         stage.show();
     }
 

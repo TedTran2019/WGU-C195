@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import ted.wguc195.SchedulingApplication;
 import ted.wguc195.daos.UserDaoImpl;
 
 import java.io.IOException;
@@ -36,6 +37,7 @@ public abstract class BaseController {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource(sceneName));
         stage.setScene(new Scene(root));
+        SchedulingApplication.setLocation(sceneName);
         stage.show();
     }
 
@@ -44,6 +46,7 @@ public abstract class BaseController {
         stage = (Stage)((RadioButton)event.getSource()).getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource(sceneName));
         stage.setScene(new Scene(root));
+        SchedulingApplication.setLocation(sceneName);
         stage.show();
     }
 
