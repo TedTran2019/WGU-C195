@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * This class provides methods for opening and closing a connection to the database as well as getting the connection.
+ */
 public abstract class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -14,6 +17,9 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     private static Connection connection;  // Connection Interface
 
+    /**
+     * Opens a connection to the database.
+     */
     public static void openConnection()
     {
         try {
@@ -33,6 +39,9 @@ public abstract class JDBC {
         }
     }
 
+    /**
+     * Closes the connection to the database.
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -44,6 +53,9 @@ public abstract class JDBC {
         }
     }
 
+    /**
+     * @return the connection
+     */
     public static Connection getConnection() {
         return connection;
     }

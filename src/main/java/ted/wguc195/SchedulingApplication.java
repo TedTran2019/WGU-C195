@@ -16,6 +16,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+/**
+ * The main class for the Scheduling Application.
+ * This class is responsible for opening/closing database connections, setting the stage, and handling the X button.
+ * @author Ted Tran
+ */
 public class SchedulingApplication extends Application {
     public static String user = null;
     public static String location = null;
@@ -36,6 +41,9 @@ public class SchedulingApplication extends Application {
         SchedulingApplication.user = user;
     }
 
+    /**
+     * Main entry point for the application. Sets up the stage and loads the LoginForm scene.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         Locale userLocale = Locale.getDefault();
@@ -45,10 +53,15 @@ public class SchedulingApplication extends Application {
         stage.setScene(scene);
         setLocation("/views/LoginForm.fxml");
         setXHandler(stage);
-        System.out.println("JavaFX version: " + System.getProperties().get("javafx.version"));
         stage.show();
     }
 
+    /**
+     * Clicking X on LoginForm exits the application
+     * Clicking X on Main goes to LoginForm
+     * Clicking X anywhere else goes to Main
+     * @param stage the stage to set the X button handler for
+     */
     private void setXHandler(Stage stage) {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -77,6 +90,11 @@ public class SchedulingApplication extends Application {
         });
     }
 
+    /**
+     * Opens connection to the database, launches application, and closes connection to the database.
+     * Javadocs folder is located in the root directory of the project.
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         JDBC.openConnection();
         launch();

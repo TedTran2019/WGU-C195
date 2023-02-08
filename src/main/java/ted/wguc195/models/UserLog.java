@@ -12,6 +12,10 @@ public class UserLog {
     private boolean loginSuccess;
     private String failureReason;
 
+    /**
+     * Returns all user logs from the login_activity.txt file.
+     * @return ObservableList of UserLog objects
+     */
     public static ObservableList<UserLog> getAll() {
         ObservableList<UserLog> userLogs = FXCollections.observableArrayList();
         FileIO.readFromFile("login_activity.txt").lines().forEach(line -> {
@@ -21,6 +25,11 @@ public class UserLog {
         return userLogs;
     }
 
+    /**
+     * Returns all user logs for a given user from the login_activity.txt file.
+     * @param userName The username to search for
+     * @return ObservableList of UserLog objects
+     */
     public static ObservableList<UserLog> getAllByUser(String userName) {
         ObservableList<UserLog> userLogs = FXCollections.observableArrayList();
         FileIO.readFromFile("login_activity.txt").lines().forEach(line -> {
@@ -32,6 +41,13 @@ public class UserLog {
         return userLogs;
     }
 
+    /**
+     * Constructor for UserLog
+     * @param userName
+     * @param attemptDate
+     * @param loginSuccess
+     * @param failureReason
+     */
     public UserLog(String userName, LocalDateTime attemptDate, boolean loginSuccess, String failureReason) {
         this.userName = userName;
         this.attemptDate = attemptDate;
@@ -39,34 +55,58 @@ public class UserLog {
         this.failureReason = failureReason;
     }
 
+    /**
+     * @return the username
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * @param userName the username to set
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     * @return the attemptDate
+     */
     public LocalDateTime getAttemptDate() {
         return attemptDate;
     }
 
+    /**
+     * @param attemptDate the attemptDate to set
+     */
     public void setAttemptDate(LocalDateTime attemptDate) {
         this.attemptDate = attemptDate;
     }
 
+    /**
+     * @return the loginSuccess
+     */
     public boolean isLoginSuccess() {
         return loginSuccess;
     }
 
+    /**
+     * @param loginSuccess the loginSuccess to set
+     */
     public void setLoginSuccess(boolean loginSuccess) {
         this.loginSuccess = loginSuccess;
     }
 
+    /**
+     * @return the failureReason
+     */
     public String getFailureReason() {
         return failureReason;
     }
 
+    /**
+     * @param failureReason the failureReason to set
+     */
     public void setFailureReason(String failureReason) {
         this.failureReason = failureReason;
     }
