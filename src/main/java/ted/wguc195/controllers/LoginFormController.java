@@ -49,7 +49,7 @@ public class LoginFormController extends BaseController {
             else {
                 errorBox("Invalid username", "User not found", "Please enter a valid username");
             }
-            logUser(false);
+            logUser(false, "User not found");
             return;
         }
         if (!user.getPassword().equals(password)) {
@@ -59,19 +59,24 @@ public class LoginFormController extends BaseController {
             else {
                 errorBox("Invalid password", "Password incorrect", "Please enter a valid password");
             }
-            logUser(false);
+            logUser(false, "Incorrect password");
             return;
         }
-        logUser(true);
+        logUser(true, "NA");
         SchedulingApplication.setUser(user.getUserName());
         switchScene(event, "/views/Main.fxml");
         alertAppointments();
     }
 
-    private void logUser(boolean success) {
-        FileIO.writeToFile("login_activity.txt", "TEST");
-        String string = FileIO.readFromFile("login_activity.txt");
-        System.out.println(string);
+    /**
+     * Logs user activity into login_activity.txt in the format of: username,date,success,reason for failure
+     * I split it by commas, so any commas in any fields will mess up the parsing process.
+     * @param success whether the login was successful or not
+     * @param reasonForFailure the reason for failure, if applicable
+     */
+    private void logUser(boolean success, String reasonForFailure) {
+        FileIO.writeToFile("login_activity.txt", SchedulingApplication.getUser() + ","
+                + LocalDateTime.now() + "," + success + "," + reasonForFailure);
     }
 
     private void alertAppointments() throws SQLException {
