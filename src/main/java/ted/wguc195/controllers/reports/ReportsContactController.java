@@ -17,12 +17,19 @@ import ted.wguc195.models.Contact;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * Controller for the Reports Contact screen.
+ * */
 public class ReportsContactController extends ReportsController {
     @FXML
     private ComboBox<Contact> comboBoxReports;
     @FXML
     private TableView<Appointment> tableViewReports;
 
+    /**
+     * When a contact from the combo box is selected, the table view is updated with the selected contact's appointments.
+     * @param event
+     */
     @FXML
     void onActionComboBox(ActionEvent event) throws SQLException {
         ObservableList<Appointment> appointments = appointmentDao.getAllAppointmentsByContactID(comboBoxReports.getValue().getContactID());
@@ -38,6 +45,9 @@ public class ReportsContactController extends ReportsController {
         appointmentsInitialize();
     }
 
+    /**
+     * This makes it so that appointments that have already passed are highlighted in red.
+     */
     private void showExpiredAppointments() {
         tableViewReports.setRowFactory(tableView -> new TableRow<Appointment>() {
             @Override

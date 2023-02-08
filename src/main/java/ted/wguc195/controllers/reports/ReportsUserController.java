@@ -15,6 +15,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Controller for the Reports User screen.
+ */
 public class ReportsUserController extends ReportsController {
     @FXML
     private ComboBox<String> comboBoxReports;
@@ -34,6 +37,10 @@ public class ReportsUserController extends ReportsController {
 
     private UserDaoImpl userDao = new UserDaoImpl();
 
+    /**
+     * When a user from the combo box is selected, the table view is updated with the selected user's login attempts.
+     * @param event
+     */
     @FXML
     void onActionComboBox(ActionEvent event) {
         ObservableList<UserLog> userLogs = UserLog.getAllByUser(comboBoxReports.getValue());
@@ -51,6 +58,10 @@ public class ReportsUserController extends ReportsController {
         labelReportsCounter.setText("Total User Login Attempts: " + userLogs.size());
     }
 
+    /**
+     * Sets the table view columns to the correct properties of the UserLog class.
+     * Also formats the date column to display the date and time in a more readable format.
+     */
     private void setReportsLogTable() {
         colUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
         colLoginSuccess.setCellValueFactory(new PropertyValueFactory<>("loginSuccess"));

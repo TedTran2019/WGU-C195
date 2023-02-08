@@ -12,6 +12,9 @@ import ted.wguc195.models.Appointment;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+/**
+ * Controller for the Reports Month view.
+ */
 public class ReportsMonthController extends ReportsController {
     @FXML
     private ComboBox<String> comboBoxReports;
@@ -20,6 +23,10 @@ public class ReportsMonthController extends ReportsController {
     private HashMap<String, Integer> monthMap = new HashMap<>();
     private ObservableList<String> months = FXCollections.observableArrayList();
 
+    /**
+     * When a month from the combo box is selected, the table view is updated with the selected month's appointments.
+     * @param event
+     */
     @FXML
     void onActionComboBox(ActionEvent event) throws SQLException {
         ObservableList<Appointment> appointments = appointmentDao.getAllAppointmentsByMonth(monthMap.get(comboBoxReports.getValue()));
@@ -36,6 +43,9 @@ public class ReportsMonthController extends ReportsController {
         appointmentsInitialize();
     }
 
+    /**
+     * Fills the monthMap with the month name and the corresponding month number.
+     */
     private void fillMonthMap() {
         monthMap.put("January", 1);
         monthMap.put("February", 2);
@@ -51,6 +61,10 @@ public class ReportsMonthController extends ReportsController {
         monthMap.put("December", 12);
     }
 
+    /**
+     * Fills the months ObservableList with the month names.
+     * I did this rather than using the monthMap.keySet() because I wanted the months to be in order.
+     */
     private void fillMonths() {
         months.add("January");
         months.add("February");

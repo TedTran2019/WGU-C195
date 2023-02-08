@@ -10,6 +10,9 @@ import ted.wguc195.models.Appointment;
 
 import java.sql.SQLException;
 
+/**
+ * The controller for the Reports Type screen.
+ */
 public class ReportsTypeController extends ReportsController {
     @FXML
     private ComboBox<String> comboBoxReports;
@@ -17,6 +20,10 @@ public class ReportsTypeController extends ReportsController {
     @FXML
     private TableView<Appointment> tableViewReports;
 
+    /**
+     * When a type from the combo box is selected, the table view is updated with the selected type's appointments.
+     * @param event
+     */
     @FXML
     void onActionComboBox(ActionEvent event) throws SQLException {
         ObservableList<Appointment> appointments = appointmentDao.getAllAppointmentsByType(comboBoxReports.getValue());

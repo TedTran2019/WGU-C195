@@ -13,7 +13,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+/**
+ * Controller for the Add Appointment view.
+ */
 public class AddAppointmentController  extends AppointmentController{
+    /**
+     * Adds an appointment to the database.
+     * @param event The event that triggered this method.
+     * @throws SQLException If there is an error with the database.
+     * @throws IOException If there is an error with the file system.
+     */
     @FXML
     void onActionAddAppointment(ActionEvent event) throws SQLException, IOException {
         String title = textFieldTitle.getText();

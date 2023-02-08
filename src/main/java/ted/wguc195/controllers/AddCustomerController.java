@@ -9,7 +9,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * Controller for the Add Customer view.
+ */
 public class AddCustomerController extends CustomerController {
+    /**
+     * Adds a new customer to the database.
+     * @param event The event that triggered this method.
+     * @throws SQLException If there is an error with the database.
+     * @throws IOException If there is an error with the FXML file.
+     */
     @FXML
     void onActionAddCustomer(ActionEvent event) throws SQLException, IOException {
         String customerName = textFieldName.getText();
