@@ -12,4 +12,5 @@ public interface UserDao {
     public void updateUser(User user) throws SQLException;
     public void deleteUser(int userID) throws SQLException;
     public void addUser(User user) throws SQLException;
+    public ObservableList<String> getAllUserNames() throws SQLException;
 }

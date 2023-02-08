@@ -105,4 +105,18 @@ public class UserDaoImpl implements UserDao{
         ps.setString(6, user.getLastUpdatedBy());
         ps.executeUpdate();
     }
+
+    @Override
+    public ObservableList<String> getAllUserNames() throws SQLException {
+        ObservableList<String> userNames = FXCollections.observableArrayList();
+
+        String sql = "SELECT User_Name FROM users";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            userNames.add(rs.getString("User_Name"));
+        }
+        return userNames;
+    }
 }
