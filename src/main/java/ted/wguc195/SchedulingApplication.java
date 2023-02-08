@@ -45,6 +45,7 @@ public class SchedulingApplication extends Application {
         stage.setScene(scene);
         setLocation("/views/LoginForm.fxml");
         setXHandler(stage);
+        System.out.println("JavaFX version: " + System.getProperties().get("javafx.version"));
         stage.show();
     }
 
