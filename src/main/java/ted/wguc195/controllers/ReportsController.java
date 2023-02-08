@@ -1,11 +1,17 @@
 package ted.wguc195.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import ted.wguc195.daos.AppointmentDaoImpl;
+import ted.wguc195.daos.ContactDaoImpl;
+import ted.wguc195.models.Appointment;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class ReportsController extends BaseController {
     @FXML
@@ -25,10 +31,32 @@ public class ReportsController extends BaseController {
     protected RadioButton radioButtonUser;
 
     @FXML
-    private ComboBox<?> comboBoxReports;
+    protected TableColumn<Appointment, Integer> colCustomerID;
 
     @FXML
-    private TableView<?> tableViewReports;
+    protected TableColumn<Appointment, String> colDescription;
+
+    @FXML
+    protected TableColumn<Appointment, LocalDateTime> colEnd;
+
+    @FXML
+    protected TableColumn<Appointment, Integer> colID;
+
+    @FXML
+    protected TableColumn<Appointment, LocalDateTime> colStart;
+
+    @FXML
+    protected TableColumn<Appointment, String> colTitle;
+
+    @FXML
+    protected TableColumn<Appointment, String> colType;
+
+    @FXML
+    private ComboBox<?> comboBoxReports;
+    @FXML
+    private TableView<Appointment> tableViewReports;
+    protected ContactDaoImpl contactDao = new ContactDaoImpl();
+    protected AppointmentDaoImpl appointmentDao = new AppointmentDaoImpl();
 
     @FXML
     private void onActionComboBox(ActionEvent event) {
@@ -57,5 +85,22 @@ public class ReportsController extends BaseController {
     public void initialize() throws SQLException {
         comboBoxReports.setVisible(false);
         labelReportsCounter.setVisible(false);
+    }
+
+    protected void appointmentsInitialize() throws SQLException {
+        setReportsAppointmentsTable();
+        ObservableList<Appointment> appointments = appointmentDao.getAllAppointmentsSortedByDate();
+        tableViewReports.setItems(appointments);
+        labelReportsCounter.setText("Total Appointments: " + appointments.size());
+    }
+
+    private void setReportsAppointmentsTable() throws SQLException {
+        colID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colStart.setCellValueFactory(new PropertyValueFactory<>("start"));
+        colEnd.setCellValueFactory(new PropertyValueFactory<>("end"));
+        colCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
     }
 }

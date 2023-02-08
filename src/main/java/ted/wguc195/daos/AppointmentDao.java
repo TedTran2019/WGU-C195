@@ -23,4 +23,7 @@ public interface AppointmentDao {
     public ObservableList<Appointment> getAppointmentsWithin15Minutes(LocalDateTime loginTime) throws SQLException;
     public ObservableList<Appointment> getAllAppointmentsSortedByDate() throws SQLException;
     public ObservableList<Appointment> getAllAppointmentsByContactID(int contactID) throws SQLException;
+    public ObservableList<String> getAllAppointmentTypes() throws SQLException;
+    public ObservableList<Appointment> getAllAppointmentsByType(String type) throws SQLException;
+    public ObservableList<Appointment> getAllAppointmentsByMonth(int month) throws SQLException;
 }

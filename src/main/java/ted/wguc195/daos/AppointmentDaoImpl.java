@@ -310,4 +310,143 @@ public class AppointmentDaoImpl implements AppointmentDao{
         }
         return appointments;
     }
+
+    @Override
+    public ObservableList<Appointment> getAllAppointmentsSortedByDate() throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM appointments ORDER BY Start";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int appointmentID = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String description = rs.getString("Description");
+            String location = rs.getString("Location");
+            String type = rs.getString("Type");
+            Timestamp start = rs.getTimestamp("Start");
+            Timestamp end = rs.getTimestamp("End");
+            Timestamp createDate = rs.getTimestamp("Create_Date");
+            String createdBy = rs.getString("Created_By");
+            Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+            String lastUpdatedBy = rs.getString("Last_Updated_By");
+            int customerID = rs.getInt("Customer_ID");
+            int userID = rs.getInt("User_ID");
+            int contactID = rs.getInt("Contact_ID");
+
+            appointments.add(new Appointment(appointmentID, title, description, location, type, start.toLocalDateTime(),
+                    end.toLocalDateTime(), createDate.toLocalDateTime(), createdBy, lastUpdate.toLocalDateTime(),
+                    lastUpdatedBy, customerID, userID, contactID));
+        }
+        return appointments;
+    }
+
+    @Override
+    public ObservableList<Appointment> getAllAppointmentsByContactID(int contactID) throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM appointments WHERE Contact_ID = ? ORDER BY Start";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ps.setInt(1, contactID);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int appointmentID = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String description = rs.getString("Description");
+            String location = rs.getString("Location");
+            String type = rs.getString("Type");
+            Timestamp start = rs.getTimestamp("Start");
+            Timestamp end = rs.getTimestamp("End");
+            Timestamp createDate = rs.getTimestamp("Create_Date");
+            String createdBy = rs.getString("Created_By");
+            Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+            String lastUpdatedBy = rs.getString("Last_Updated_By");
+            int customerID = rs.getInt("Customer_ID");
+            int userID = rs.getInt("User_ID");
+
+            appointments.add(new Appointment(appointmentID, title, description, location, type, start.toLocalDateTime(),
+                    end.toLocalDateTime(), createDate.toLocalDateTime(), createdBy, lastUpdate.toLocalDateTime(),
+                    lastUpdatedBy, customerID, userID, contactID));
+        }
+        return appointments;
+    }
+
+    @Override
+    public ObservableList<String> getAllAppointmentTypes() throws SQLException {
+        ObservableList<String> types = FXCollections.observableArrayList();
+
+        String sql = "SELECT DISTINCT Type FROM appointments";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            types.add(rs.getString("Type"));
+        }
+        return types;
+    }
+
+    @Override
+    public ObservableList<Appointment> getAllAppointmentsByType(String type) throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM appointments WHERE Type = ? ORDER BY Start";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ps.setString(1, type);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int appointmentID = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String description = rs.getString("Description");
+            String location = rs.getString("Location");
+            Timestamp start = rs.getTimestamp("Start");
+            Timestamp end = rs.getTimestamp("End");
+            Timestamp createDate = rs.getTimestamp("Create_Date");
+            String createdBy = rs.getString("Created_By");
+            Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+            String lastUpdatedBy = rs.getString("Last_Updated_By");
+            int customerID = rs.getInt("Customer_ID");
+            int userID = rs.getInt("User_ID");
+            int contactID = rs.getInt("Contact_ID");
+
+            appointments.add(new Appointment(appointmentID, title, description, location, type, start.toLocalDateTime(),
+                    end.toLocalDateTime(), createDate.toLocalDateTime(), createdBy, lastUpdate.toLocalDateTime(),
+                    lastUpdatedBy, customerID, userID, contactID));
+        }
+        return appointments;
+    }
+
+    @Override
+    public ObservableList<Appointment> getAllAppointmentsByMonth(int month) throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM appointments WHERE MONTH(Start) = ? ORDER BY Start";
+        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        ps.setInt(1, month);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int appointmentID = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String description = rs.getString("Description");
+            String location = rs.getString("Location");
+            String type = rs.getString("Type");
+            Timestamp start = rs.getTimestamp("Start");
+            Timestamp end = rs.getTimestamp("End");
+            Timestamp createDate = rs.getTimestamp("Create_Date");
+            String createdBy = rs.getString("Created_By");
+            Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+            String lastUpdatedBy = rs.getString("Last_Updated_By");
+            int customerID = rs.getInt("Customer_ID");
+            int userID = rs.getInt("User_ID");
+            int contactID = rs.getInt("Contact_ID");
+
+            appointments.add(new Appointment(appointmentID, title, description, location, type, start.toLocalDateTime(),
+                    end.toLocalDateTime(), createDate.toLocalDateTime(), createdBy, lastUpdate.toLocalDateTime(),
+                    lastUpdatedBy, customerID, userID, contactID));
+        }
+        return appointments;
+    }
 }
