@@ -33,15 +33,7 @@ public class SchedulingApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-    /**
-     *  Provide reports on the following:
-     *  - Additional report based on user login date and time stamp from login attempts
-     *
-     *  - Track user activity by recording all login attempts (along w/ date and timestamps + success) to a text file
-     *  - Javadocs
-     *  - README.txt (not md?) with a bunch of information
-     * */
+    
     public static void main(String[] args) {
         JDBC.openConnection();
         launch();

@@ -87,9 +87,9 @@
                 <TableView fx:id="tableViewReports" prefHeight="472.0" prefWidth="800.0">
                <columns>
                   <TableColumn fx:id="colUserName" prefWidth="150.0" text="User Name" />
-                  <TableColumn fx:id="colAttemptDate" prefWidth="150.0" text="Attempt Date" />
-                  <TableColumn fx:id="colLoginSuccess" minWidth="0.0" prefWidth="100.0" text="Login Success?" />
-                  <TableColumn fx:id="colFailureReason" prefWidth="358.0" text="Failure Reason" />
+                  <TableColumn fx:id="colAttemptDate" prefWidth="237.0" text="Attempt Date" />
+                  <TableColumn fx:id="colLoginSuccess" minWidth="0.0" prefWidth="91.0" text="Success" />
+                  <TableColumn fx:id="colFailureReason" prefWidth="281.0" text="Failure Reason" />
                </columns></TableView>
             </children>
             <padding>

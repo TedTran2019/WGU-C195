@@ -1,4 +1,5 @@
 package ted.wguc195.controllers.reports;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +12,8 @@ import ted.wguc195.daos.UserDaoImpl;
 import ted.wguc195.models.UserLog;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ReportsUserController extends ReportsController {
     @FXML
@@ -18,16 +21,16 @@ public class ReportsUserController extends ReportsController {
     @FXML
     private TableView<UserLog> tableViewReports;
     @FXML
-    private TableColumn<?, ?> colAttemptDate;
+    private TableColumn<UserLog, String> colAttemptDate;
 
     @FXML
-    private TableColumn<?, ?> colFailureReason;
+    private TableColumn<UserLog, String> colFailureReason;
 
     @FXML
-    private TableColumn<?, ?> colLoginSuccess;
+    private TableColumn<UserLog, Boolean> colLoginSuccess;
 
     @FXML
-    private TableColumn<?, ?> colUserName;
+    private TableColumn<UserLog, String> colUserName;
 
     private UserDaoImpl userDao = new UserDaoImpl();
 
@@ -50,8 +53,12 @@ public class ReportsUserController extends ReportsController {
 
     private void setReportsLogTable() {
         colUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        colAttemptDate.setCellValueFactory(new PropertyValueFactory<>("attemptDate"));
         colLoginSuccess.setCellValueFactory(new PropertyValueFactory<>("loginSuccess"));
         colFailureReason.setCellValueFactory(new PropertyValueFactory<>("failureReason"));
+        colAttemptDate.setCellValueFactory(cellData -> {
+            LocalDateTime time = cellData.getValue().getAttemptDate();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy  |  HH:mm");
+            return new SimpleStringProperty(time.format(formatter));
+        });
     }
 }
