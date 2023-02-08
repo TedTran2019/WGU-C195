@@ -13,7 +13,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+/**
+ * Implements the AppointmentDao interface.
+ */
 public class AppointmentDaoImpl implements AppointmentDao{
+    /**
+     * Gets all appointments from the database.
+     * @return An ObservableList of all appointments.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getAllAppointments() throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -45,6 +53,12 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Gets an appointment from the database.
+     * @param appointmentID The ID of the appointment to get.
+     * @return The appointment.
+     * @throws SQLException
+     */
     @Override
     public Appointment getAppointment(int appointmentID) throws SQLException {
         String sql = "SELECT * FROM appointments WHERE Appointment_ID = ?";
@@ -74,6 +88,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return null;
     }
 
+    /**
+     * Updates an appointment in the database.
+     * @param appointment The appointment to update.
+     * @throws SQLException
+     */
     @Override
     public void updateAppointment(Appointment appointment) throws SQLException {
         String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
@@ -94,6 +113,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Deletes an appointment from the database.
+     * @param appointmentID The ID of the appointment to delete.
+     * @throws SQLException
+     */
     @Override
     public void deleteAppointment(int appointmentID) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
@@ -102,6 +126,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Adds an appointment to the database.
+     * @param appointment The appointment to add.
+     * @throws SQLException
+     */
     @Override
     public void addAppointment(Appointment appointment) throws SQLException {
         String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, " +
@@ -123,6 +152,12 @@ public class AppointmentDaoImpl implements AppointmentDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Gets all appointments from the database for a given month.
+     * @param date The date to filter by.
+     * @return A list of all appointments for a given month.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getAppointmentsByMonth(LocalDate date) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -157,6 +192,12 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Gets all appointments from the database for a given week.
+     * @param date The date to filter by.
+     * @return A list of all appointments for a given week.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getAppointmentsByWeek(LocalDate date) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -191,6 +232,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Deletes all appointments for a given customer.
+     * @param customerID The customer ID to filter by.
+     * @throws SQLException
+     */
     @Override
     public void deleteAppointmentsByCustomerID(int customerID) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Customer_ID = ?";
@@ -199,6 +245,14 @@ public class AppointmentDaoImpl implements AppointmentDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Gets all overlapping appointments
+     * @param startUTC The start time to filter by.
+     * @param endUTC The end time to filter by.
+     * @param custID The customer ID to filter by.
+     * @return An ObservableList of all overlapping appointments.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getOverlappingAppointments(LocalDateTime startUTC, LocalDateTime endUTC, int custID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -238,6 +292,15 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Gets all overlapping appointments minus the appointment with the given ID.
+     * @param startUTC The start time to filter by.
+     * @param endUTC The end time to filter by.
+     * @param ID The appointment ID to filter by.
+     * @param custID The customer ID to filter by.
+     * @return An ObservableList of all overlapping appointments minus the appointment with the given ID.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getOverlappingAppointmentsMinusSelf(LocalDateTime startUTC, LocalDateTime endUTC, int ID, int custID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -278,6 +341,12 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Gets all appointments within 15 minutes of the given login time.
+     * @param loginTime The login time to filter by.
+     * @return An ObservableList of all appointments within 15 minutes of the given login time.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getAppointmentsWithin15Minutes(LocalDateTime loginTime) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -311,6 +380,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Gets all appointments sorted by date
+     * @return An ObservableList of all appointments sorted by date
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getAllAppointmentsSortedByDate() throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -342,6 +416,12 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Gets all appointments by contact ID
+     * @param contactID The contact ID to filter by.
+     * @return An ObservableList of all appointments by contact ID
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getAllAppointmentsByContactID(int contactID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -373,6 +453,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Gets all appointment types
+     * @return An ObservableList of all appointment types
+     * @throws SQLException
+     */
     @Override
     public ObservableList<String> getAllAppointmentTypes() throws SQLException {
         ObservableList<String> types = FXCollections.observableArrayList();
@@ -387,6 +472,12 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return types;
     }
 
+    /**
+     * Gets all appointments of a given type
+     * @param type The type to filter by.
+     * @return An ObservableList of all appointments of a given type
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getAllAppointmentsByType(String type) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -418,6 +509,12 @@ public class AppointmentDaoImpl implements AppointmentDao{
         return appointments;
     }
 
+    /**
+     * Gets all appointments of a given month
+     * @param month The month to filter by.
+     * @return An ObservableList of all appointments of a given month
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Appointment> getAllAppointmentsByMonth(int month) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();

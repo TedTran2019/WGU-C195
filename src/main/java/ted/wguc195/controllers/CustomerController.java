@@ -91,7 +91,7 @@ public abstract class CustomerController extends BaseController {
      * @param address
      * @param postalCode
      * @param phone
-     * @returns boolean isValid
+     * @return boolean isValid
      */
     protected boolean validateFields(String customerName, String address, String postalCode, String phone) {
         boolean isValid = true;

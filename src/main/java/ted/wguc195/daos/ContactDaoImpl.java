@@ -10,7 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Implements the ContactDao interface.
+ */
 public class ContactDaoImpl implements ContactDao{
+    /**
+     * Gets all contacts from the database.
+     * @return An ObservableList of all contacts.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Contact> getAllContacts() throws SQLException {
         ObservableList<Contact> contacts = FXCollections.observableArrayList();
@@ -29,6 +37,12 @@ public class ContactDaoImpl implements ContactDao{
         return contacts;
     }
 
+    /**
+     * Gets a contact from the database.
+     * @param contactID The ID of the contact to get.
+     * @return The contact.
+     * @throws SQLException
+     */
     @Override
     public Contact getContact(int contactID) throws SQLException {
         String sql = "SELECT * FROM contacts WHERE Contact_ID = ?";
@@ -45,6 +59,11 @@ public class ContactDaoImpl implements ContactDao{
         return null;
     }
 
+    /**
+     * Updates a contact in the database.
+     * @param contact The contact to update.
+     * @throws SQLException
+     */
     @Override
     public void updateContact(Contact contact) throws SQLException {
         String sql = "UPDATE contacts SET Contact_Name = ?, Email = ? WHERE Contact_ID = ?";
@@ -55,6 +74,11 @@ public class ContactDaoImpl implements ContactDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Deletes a contact from the database.
+     * @param contactID The ID of the contact to delete.
+     * @throws SQLException
+     */
     @Override
     public void deleteContact(int contactID) throws SQLException {
         String sql = "DELETE FROM contacts WHERE Contact_ID = ?";
@@ -63,6 +87,11 @@ public class ContactDaoImpl implements ContactDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Adds a contact to the database.
+     * @param contact The contact to add.
+     * @throws SQLException
+     */
     @Override
     public void addContact(Contact contact) throws SQLException {
         String sql = "INSERT INTO contacts (Contact_Name, Email) VALUES (?, ?)";

@@ -10,7 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Implementation of the UserDao interface.
+ */
 public class UserDaoImpl implements UserDao{
+    /**
+     * Gets all users from the database.
+     * @return An ObservableList of all users.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<User> getAllUsers() throws SQLException {
         ObservableList<User> users = FXCollections.observableArrayList();
@@ -33,6 +41,12 @@ public class UserDaoImpl implements UserDao{
         return users;
     }
 
+    /**
+     * Gets a user from the database.
+     * @param userID The ID of the user to get.
+     * @return The user with the given ID.
+     * @throws SQLException
+     */
     @Override
     public User getUser(int userID) throws SQLException {
         String sql = "SELECT * FROM users WHERE User_ID = ?";
@@ -53,6 +67,12 @@ public class UserDaoImpl implements UserDao{
         return null;
     }
 
+    /**
+     * Gets a user from the database.
+     * @param userName The name of the user to get.
+     * @return The user with the given name.
+     * @throws SQLException
+     */
     @Override
     public User getUser(String userName) throws SQLException {
         String sql = "SELECT * FROM users WHERE User_Name = ?";
@@ -73,6 +93,11 @@ public class UserDaoImpl implements UserDao{
         return null;
     }
 
+    /**
+     * Updates a user in the database.
+     * @param user The user to update.
+     * @throws SQLException
+     */
     @Override
     public void updateUser(User user) throws SQLException {
         String sql = "UPDATE users SET User_Name = ?, Password = ?, Last_Update = ?, Last_Updated_By = ? WHERE User_ID = ?";
@@ -85,6 +110,11 @@ public class UserDaoImpl implements UserDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Deletes a user from the database.
+     * @param userID The ID of the user to delete.
+     * @throws SQLException
+     */
     @Override
     public void deleteUser(int userID) throws SQLException {
         String sql = "DELETE FROM users WHERE User_ID = ?";
@@ -93,6 +123,11 @@ public class UserDaoImpl implements UserDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Adds a user to the database.
+     * @param user The user to add.
+     * @throws SQLException
+     */
     @Override
     public void addUser(User user) throws SQLException {
         String sql = "INSERT INTO users (User_Name, Password, Create_Date, Created_By, Last_Update, Last_Updated_By) VALUES (?, ?, ?, ?, ?, ?)";
@@ -106,6 +141,11 @@ public class UserDaoImpl implements UserDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Gets all usernames from the database.
+     * @return An ObservableList of all usernames.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<String> getAllUserNames() throws SQLException {
         ObservableList<String> userNames = FXCollections.observableArrayList();

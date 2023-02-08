@@ -10,7 +10,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Implements the CountryDao interface.
+ */
 public class CountryDaoImpl implements CountryDao{
+
+    /**
+     * Gets all countries from the database.
+     * @return An ObservableList of all countries.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Country> getAllCountries() throws SQLException {
         ObservableList<Country> countries = FXCollections.observableArrayList();
@@ -32,6 +41,12 @@ public class CountryDaoImpl implements CountryDao{
         return countries;
     }
 
+    /**
+     * Gets a country from the database.
+     * @param countryID The ID of the country to get.
+     * @return The country with the given ID.
+     * @throws SQLException
+     */
     @Override
     public Country getCountry(int countryID) throws SQLException {
         String sql = "SELECT * FROM countries WHERE Country_ID = ?";
@@ -51,6 +66,11 @@ public class CountryDaoImpl implements CountryDao{
         return null;
     }
 
+    /**
+     * Updates a country in the database.
+     * @param country The country to update.
+     * @throws SQLException
+     */
     @Override
     public void updateCountry(Country country) throws SQLException {
         String sql = "UPDATE countries SET Country = ?, Last_Update = ?, Last_Updated_By = ? WHERE Country_ID = ?";
@@ -62,6 +82,11 @@ public class CountryDaoImpl implements CountryDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Deletes a country from the database.
+     * @param countryID The ID of the country to delete.
+     * @throws SQLException
+     */
     @Override
     public void deleteCountry(int countryID) throws SQLException {
         String sql = "DELETE FROM countries WHERE Country_ID = ?";
@@ -70,6 +95,11 @@ public class CountryDaoImpl implements CountryDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Adds a country to the database.
+     * @param country The country to add.
+     * @throws SQLException
+     */
     @Override
     public void addCountry(Country country) throws SQLException {
         String sql = "INSERT INTO countries (Country, Create_Date, Created_By, Last_Update, Last_Updated_By) VALUES (?, ?, ?, ?, ?)";

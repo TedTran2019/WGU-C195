@@ -10,7 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Implements the CustomerDao interface.
+ */
 public class CustomerDaoImpl implements CustomerDao{
+    /**
+     * Gets all customers from the database.
+     * @return An ObservableList of all customers.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Customer> getAllCustomers() throws SQLException {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
@@ -37,6 +45,12 @@ public class CustomerDaoImpl implements CustomerDao{
         return customers;
     }
 
+    /**
+     * Gets a customer from the database.
+     * @param customerID The ID of the customer to get.
+     * @return The customer with the given ID.
+     * @throws SQLException
+     */
     @Override
     public Customer getCustomer(int customerID) throws SQLException {
         String sql = "SELECT * FROM customers WHERE Customer_ID = ?";
@@ -61,6 +75,11 @@ public class CustomerDaoImpl implements CustomerDao{
         return null;
     }
 
+    /**
+     * Updates a customer in the database.
+     * @param customer The customer to update.
+     * @throws SQLException
+     * */
     @Override
     public void updateCustomer(Customer customer) throws SQLException {
         String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, " +
@@ -77,6 +96,11 @@ public class CustomerDaoImpl implements CustomerDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Deletes a customer from the database.
+     * @param customerID The ID of the customer to delete.
+     * @throws SQLException
+     */
     @Override
     public void deleteCustomer(int customerID) throws SQLException {
         new AppointmentDaoImpl().deleteAppointmentsByCustomerID(customerID);
@@ -86,6 +110,11 @@ public class CustomerDaoImpl implements CustomerDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Adds a customer to the database.
+     * @param customer The customer to add.
+     * @throws SQLException
+     */
     @Override
     public void addCustomer(Customer customer) throws SQLException {
         String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, " +

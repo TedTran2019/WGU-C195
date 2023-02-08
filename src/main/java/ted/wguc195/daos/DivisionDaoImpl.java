@@ -10,7 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Implementation of the DivisionDao interface.
+ */
 public class DivisionDaoImpl implements DivisionDao{
+    /**
+     * Gets all divisions from the database.
+     * @return An ObservableList of all divisions.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Division> getAllDivisions() throws SQLException {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
@@ -34,6 +42,12 @@ public class DivisionDaoImpl implements DivisionDao{
         return divisions;
     }
 
+    /**
+     * Gets a division from the database.
+     * @param divisionID The ID of the division to get.
+     * @return The division with the given ID.
+     * @throws SQLException
+     */
     @Override
     public Division getDivision(int divisionID) throws SQLException {
         String sql = "SELECT * FROM first_level_divisions WHERE Division_ID = ?";
@@ -55,6 +69,11 @@ public class DivisionDaoImpl implements DivisionDao{
         return null;
     }
 
+    /**
+     * Updates a division in the database.
+     * @param division The division to update.
+     * @throws SQLException
+     */
     @Override
     public void updateDivision(Division division) throws SQLException {
         String sql = "UPDATE first_level_divisions SET Division = ?, Last_Update = ?, Last_Updated_By = ?, Country_ID = ?, WHERE Division_ID = ?";
@@ -67,6 +86,11 @@ public class DivisionDaoImpl implements DivisionDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Deletes a division from the database.
+     * @param divisionID The ID of the division to delete.
+     * @throws SQLException
+     */
     @Override
     public void deleteDivision(int divisionID) throws SQLException {
         String sql = "DELETE FROM first_level_divisions WHERE Division_ID = ?";
@@ -75,6 +99,11 @@ public class DivisionDaoImpl implements DivisionDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Adds a division to the database.
+     * @param division The division to add.
+     * @throws SQLException
+     */
     @Override
     public void addDivision(Division division) throws SQLException {
         String sql = "INSERT INTO first_level_divisions (Division, Create_Date, Created_By, Last_Update, Last_Updated_By, Country_ID) VALUES (?, ?, ?, ?, ?, ?)";
@@ -88,6 +117,12 @@ public class DivisionDaoImpl implements DivisionDao{
         ps.executeUpdate();
     }
 
+    /**
+     * Gets all divisions from a given country.
+     * @param countryID The ID of the country to get divisions from.
+     * @return An ObservableList of all divisions from the given country.
+     * @throws SQLException
+     */
     @Override
     public ObservableList<Division> getDivisionsFromCountryID(int countryID) throws SQLException {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
